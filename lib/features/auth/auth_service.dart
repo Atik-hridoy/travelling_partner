@@ -1,15 +1,28 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../firebase_options.dart';
 import '../../core/services/app_logger.dart';
 
 /// ------------------------------------------------------------------
-/// Traceable Firebase Authentication & Firestore Helper Service
+/// Traceable & Auto-Initializing Firebase Auth & Firestore Helper
 /// ------------------------------------------------------------------
 class AuthService {
-  static final FirebaseAuth _auth = FirebaseAuth.instance;
-  static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  static FirebaseAuth get _auth => FirebaseAuth.instance;
+  static FirebaseFirestore get _firestore => FirebaseFirestore.instance;
 
-  static User? get currentUser => _auth.currentUser;
+  static User? get currentUser => Firebase.apps.isNotEmpty ? _auth.currentUser : null;
+
+  /// Ensures Firebase App is initialized before performing any Auth/Firestore operation
+  static Future<void> _ensureFirebaseInitialized() async {
+    if (Firebase.apps.isEmpty) {
+      AppLogger.info('Initializing Firebase App dynamically...', tag: 'FIREBASE_INIT');
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+      AppLogger.success('Firebase App initialized dynamically!', tag: 'FIREBASE_INIT_SUCCESS');
+    }
+  }
 
   /// 1. Sign Up User with Email & Password and send data to Cloud Firestore
   static Future<UserCredential> signUpWithEmailAndPassword({
@@ -17,6 +30,8 @@ class AuthService {
     required String email,
     required String password,
   }) async {
+    await _ensureFirebaseInitialized();
+
     AppLogger.info(
       'Attempting Firebase Sign Up for Email: "$email", Name: "$fullName"',
       tag: 'SIGN_UP_START',
@@ -48,14 +63,19 @@ class AuthService {
           'createdAt': DateTime.now().toIso8601String(),
         };
 
-        // Step C: Send User Data to Cloud Firestore
-        AppLogger.dataSend('users', user.uid, userProfileData);
-        await _firestore.collection('users').doc(user.uid).set(userProfileData);
-
-        // Fallback update doc for demo
-        await _firestore.collection('users').doc('julian_d').set(userProfileData, SetOptions(merge: true));
-
-        AppLogger.success('User Profile successfully saved to Cloud Firestore!', tag: 'FIRESTORE_SUCCESS');
+        // Step C: Send User Data to Cloud Firestore (with permission error safety)
+        try {
+          AppLogger.dataSend('users', user.uid, userProfileData);
+          await _firestore.collection('users').doc(user.uid).set(userProfileData);
+          await _firestore.collection('users').doc('julian_d').set(userProfileData, SetOptions(merge: true));
+          AppLogger.success('User Profile successfully saved to Cloud Firestore!', tag: 'FIRESTORE_SUCCESS');
+        } catch (fsError) {
+          AppLogger.error(
+            'Cloud Firestore Permission Warning',
+            fsError,
+            troubleshootingHint: '⚡ Go to Firebase Console -> Firestore Database -> Rules tab -> Change rules to: "allow read, write: if true;" then click Publish!',
+          );
+        }
       }
 
       return credential;
@@ -93,6 +113,8 @@ class AuthService {
     required String email,
     required String password,
   }) async {
+    await _ensureFirebaseInitialized();
+
     AppLogger.info('Attempting Firebase Sign In for Email: "$email"', tag: 'SIGN_IN_START');
 
     try {
@@ -121,6 +143,7 @@ class AuthService {
 
   /// 3. Sign Out User
   static Future<void> signOut() async {
+    await _ensureFirebaseInitialized();
     AppLogger.info('Signing out current Firebase user...', tag: 'SIGN_OUT');
     await _auth.signOut();
     AppLogger.success('User signed out from Firebase', tag: 'SIGN_OUT_SUCCESS');

@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import '../../core/mock/mock_data.dart';
 import '../../core/services/mock_data_seeder.dart';
+import '../auth/auth_service.dart';
 
 class ProfileController extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -21,17 +22,31 @@ class ProfileController extends GetxController {
 
   Future<void> _initFirebaseAndListen() async {
     try {
-      // Seed initial data if database is empty
-      await MockDataSeeder.seedInitialData();
+      // 1. Seed initial mock data if necessary
+      try {
+        await MockDataSeeder.seedInitialData();
+      } catch (e) {
+        debugPrint('Mock data seeder notice: $e');
+      }
 
-      // Listen to live user profile changes in Firestore
-      _firestore.collection('users').doc('julian_d').snapshots().listen((snapshot) {
-        if (snapshot.exists && snapshot.data() != null) {
-          user.value = snapshot.data()!;
-        }
-      });
+      // 2. Identify target user ID (Current Logged In User or fallback to demo)
+      final uid = AuthService.currentUser?.uid ?? 'julian_d';
+
+      // 3. Safe Stream Listen with onError handler to avoid app crashes
+      _firestore.collection('users').doc(uid).snapshots().listen(
+        (snapshot) {
+          if (snapshot.exists && snapshot.data() != null) {
+            user.value = snapshot.data()!;
+            debugPrint('👤 Profile updated live from Firestore for UID: $uid');
+          }
+        },
+        onError: (error) {
+          debugPrint('⚠️ Firestore Profile Stream Permission Warning: $error');
+          debugPrint('💡 HINT: Go to Firebase Console -> Firestore Database -> Rules -> allow read, write: if true;');
+        },
+      );
     } catch (e) {
-      debugPrint('Firestore Profile Listen Info: $e');
+      debugPrint('Firestore Profile Initialization Notice: $e');
     }
   }
 
@@ -51,12 +66,14 @@ class ProfileController extends GetxController {
     // Local reactive update
     user.value = updated;
 
-    // Push live update to Cloud Firestore
+    // Push live update to Cloud Firestore for current user & fallback
+    final uid = AuthService.currentUser?.uid ?? 'julian_d';
     try {
+      await _firestore.collection('users').doc(uid).set(updated, SetOptions(merge: true));
       await _firestore.collection('users').doc('julian_d').set(updated, SetOptions(merge: true));
-      debugPrint('☁️ Profile updated live in Cloud Firestore!');
+      debugPrint('☁️ Profile updated live in Cloud Firestore for UID: $uid!');
     } catch (e) {
-      debugPrint('Firestore Update Error: $e');
+      debugPrint('Firestore Profile Update Warning: $e');
     }
   }
 }
