@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/colors.dart';
 import '../../../../core/theme/typography.dart';
+import '../../../../core/services/location_weather_service.dart';
 import 'weather_widget.dart';
 
-class AppBarHeader extends StatelessWidget {
+class AppBarHeader extends StatefulWidget {
   final ValueChanged<WeatherType>? onWeatherChanged;
 
   const AppBarHeader({
@@ -12,10 +13,40 @@ class AppBarHeader extends StatelessWidget {
   });
 
   @override
+  State<AppBarHeader> createState() => _AppBarHeaderState();
+}
+
+class _AppBarHeaderState extends State<AppBarHeader> {
+  String _locationName = 'Locating...';
+  String _temperature = '--';
+  String _condition = 'Clear';
+  WeatherType _weatherType = WeatherType.sunny;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadRealLocationAndWeather();
+  }
+
+  Future<void> _loadRealLocationAndWeather() async {
+    final data = await LocationWeatherService.fetchLiveWeatherAndLocation();
+    if (mounted) {
+      setState(() {
+        _locationName = data.locationName;
+        _temperature = data.temperature;
+        _condition = data.conditionName;
+        _weatherType = data.weatherType;
+      });
+      widget.onWeatherChanged?.call(data.weatherType);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
+        // Real Device Location Display
         Row(
           children: [
             const Icon(Icons.location_on, color: VoyentaColors.primary, size: 24),
@@ -31,7 +62,7 @@ class AppBarHeader extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'San Francisco, CA',
+                  _locationName,
                   style: VoyentaTypography.bodyMd.copyWith(
                     fontWeight: FontWeight.bold,
                     color: VoyentaColors.onSurface,
@@ -42,7 +73,8 @@ class AppBarHeader extends StatelessWidget {
             ),
           ],
         ),
-        // Centered App Title
+
+        // App Branding
         Text(
           'Voyanta',
           style: VoyentaTypography.displayLgMobile.copyWith(
@@ -51,9 +83,12 @@ class AppBarHeader extends StatelessWidget {
             fontSize: 22,
           ),
         ),
-        // Weather Widget with Animated Entrance & Effects
+
+        // Real Weather Display (Tapping test demo disabled)
         WeatherWidget(
-          onWeatherChanged: onWeatherChanged,
+          temperature: _temperature,
+          conditionName: _condition,
+          initialType: _weatherType,
         ),
       ],
     );
