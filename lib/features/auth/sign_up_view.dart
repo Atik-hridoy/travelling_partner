@@ -3,31 +3,30 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../core/theme/colors.dart';
 import '../../core/theme/typography.dart';
-import '../../core/routes/app_routes.dart';
-import 'login_controller.dart';
+import 'sign_up_controller.dart';
 
-class LoginView extends GetView<LoginController> {
-  const LoginView({super.key});
+class SignUpView extends GetView<SignUpController> {
+  const SignUpView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.isRegistered<LoginController>()
-        ? Get.find<LoginController>()
-        : Get.put(LoginController());
+    final controller = Get.isRegistered<SignUpController>()
+        ? Get.find<SignUpController>()
+        : Get.put(SignUpController());
 
     return Scaffold(
       backgroundColor: const Color(0xFFFDF7FF),
       body: Stack(
         children: [
-          // 1. Ambient Gradient Background
+          // 1. Atmospheric Background Gradient
           Positioned.fill(
             child: Container(
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    Color(0xFFE9DDFF),
                     Color(0xFFFDF7FF),
-                    Color(0xFFFFDF93),
+                    Color(0xFFF2ECF4),
+                    Color(0xFFE1D4FD),
                   ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
@@ -36,33 +35,33 @@ class LoginView extends GetView<LoginController> {
             ),
           ),
 
-          // Ambient Blur Blobs
+          // Floating Ambient Orbs
           Positioned(
-            top: -60,
-            left: -40,
+            top: -120,
+            right: -100,
             child: Container(
-              width: 280,
-              height: 280,
+              width: 380,
+              height: 380,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: VoyentaColors.primary.withValues(alpha: 0.15),
+                color: VoyentaColors.primary.withValues(alpha: 0.12),
               ),
             ),
           ),
           Positioned(
-            bottom: -80,
-            right: -50,
+            bottom: -140,
+            left: -100,
             child: Container(
-              width: 320,
-              height: 320,
+              width: 420,
+              height: 420,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: VoyentaColors.tertiary.withValues(alpha: 0.18),
+                color: VoyentaColors.tertiary.withValues(alpha: 0.15),
               ),
             ),
           ),
 
-          // Backdrop Blur Layer for ambient elements
+          // Backdrop Blur Layer
           Positioned.fill(
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 40, sigmaY: 40),
@@ -70,135 +69,132 @@ class LoginView extends GetView<LoginController> {
             ),
           ),
 
-          // 2. Main Content
+          // 2. Main Scrollable Content
           SafeArea(
             child: Center(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 20.0),
                 child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 440),
+                  constraints: const BoxConstraints(maxWidth: 480),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // Header Logo Area
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      // Brand Mark
+                      Column(
                         children: [
                           Container(
-                            width: 44,
-                            height: 44,
-                            padding: const EdgeInsets.all(8),
+                            width: 52,
+                            height: 52,
+                            padding: const EdgeInsets.all(10),
                             decoration: BoxDecoration(
                               color: VoyentaColors.primary,
                               shape: BoxShape.circle,
                               boxShadow: [
                                 BoxShadow(
                                   color: VoyentaColors.primary.withValues(alpha: 0.25),
-                                  blurRadius: 12,
-                                  offset: const Offset(0, 4),
+                                  blurRadius: 16,
+                                  offset: const Offset(0, 6),
                                 ),
                               ],
                             ),
                             child: const Icon(
                               Icons.explore_rounded,
                               color: Colors.white,
-                              size: 26,
+                              size: 30,
                             ),
                           ),
-                          const SizedBox(width: 12),
+                          const SizedBox(height: 10),
                           Text(
                             'VOYANTA',
-                            style: VoyentaTypography.displayLgMobile.copyWith(
+                            style: VoyentaTypography.labelCaps.copyWith(
                               color: VoyentaColors.primary,
                               fontWeight: FontWeight.w900,
-                              letterSpacing: 2.0,
-                              fontSize: 26,
+                              letterSpacing: 3.0,
+                              fontSize: 13,
                             ),
                           ),
                         ],
                       ),
 
-                      const SizedBox(height: 32),
+                      const SizedBox(height: 28),
 
                       // Glass Card
                       ClipRRect(
-                        borderRadius: BorderRadius.circular(32),
+                        borderRadius: BorderRadius.circular(40),
                         child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+                          filter: ImageFilter.blur(sigmaX: 24, sigmaY: 24),
                           child: Container(
                             padding: const EdgeInsets.all(28.0),
                             decoration: BoxDecoration(
                               color: Colors.white.withValues(alpha: 0.72),
-                              borderRadius: BorderRadius.circular(32),
+                              borderRadius: BorderRadius.circular(40),
                               border: Border.all(
                                 color: Colors.white.withValues(alpha: 0.6),
                                 width: 1.5,
                               ),
                               boxShadow: [
                                 BoxShadow(
-                                  color: const Color(0xFF1F1635).withValues(alpha: 0.08),
-                                  blurRadius: 36,
-                                  offset: const Offset(0, 16),
+                                  color: const Color(0xFF4F378A).withValues(alpha: 0.08),
+                                  blurRadius: 40,
+                                  offset: const Offset(0, 20),
                                 ),
                               ],
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                // Headline
-                                Text(
-                                  'Welcome Back',
-                                  style: VoyentaTypography.displayLgMobile.copyWith(
-                                    color: VoyentaColors.onSurface,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 30,
-                                  ),
-                                ),
-                                const SizedBox(height: 6),
-                                Text(
-                                  'Your journey continues here.',
-                                  style: VoyentaTypography.bodyMd.copyWith(
-                                    color: VoyentaColors.onSurfaceVariant,
-                                    fontSize: 14,
+                                // Title Header
+                                Center(
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        'Create Your Journey',
+                                        textAlign: TextAlign.center,
+                                        style: VoyentaTypography.displayLgMobile.copyWith(
+                                          color: VoyentaColors.onSurface,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 28,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 6),
+                                      Text(
+                                        'Your personalized AI travel concierge awaits.',
+                                        textAlign: TextAlign.center,
+                                        style: VoyentaTypography.bodyMd.copyWith(
+                                          color: VoyentaColors.onSurfaceVariant,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
 
                                 const SizedBox(height: 28),
 
-                                // Form Fields
-                                _buildFieldLabel('EMAIL ADDRESS'),
-                                const SizedBox(height: 6),
-                                _buildTextField(
-                                  controller: controller.emailController,
-                                  hintText: 'name@luxury.com',
+                                // Input Fields
+                                _buildInputPill(
+                                  icon: Icons.person_outline_rounded,
+                                  hintText: 'Full Name',
+                                  controller: controller.fullNameController,
+                                ),
+
+                                const SizedBox(height: 14),
+
+                                _buildInputPill(
+                                  icon: Icons.mail_outline_rounded,
+                                  hintText: 'Email Address',
                                   keyboardType: TextInputType.emailAddress,
+                                  controller: controller.emailController,
                                 ),
 
-                                const SizedBox(height: 20),
+                                const SizedBox(height: 14),
 
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    _buildFieldLabel('PASSWORD'),
-                                    GestureDetector(
-                                      onTap: () {},
-                                      child: Text(
-                                        'Forgot Password?',
-                                        style: VoyentaTypography.bodyMd.copyWith(
-                                          color: VoyentaColors.primary,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 6),
                                 Obx(
-                                  () => _buildTextField(
-                                    controller: controller.passwordController,
-                                    hintText: '••••••••',
+                                  () => _buildInputPill(
+                                    icon: Icons.lock_outline_rounded,
+                                    hintText: 'Password',
                                     obscureText: !controller.isPasswordVisible.value,
+                                    controller: controller.passwordController,
                                     suffixIcon: IconButton(
                                       icon: Icon(
                                         controller.isPasswordVisible.value
@@ -212,9 +208,53 @@ class LoginView extends GetView<LoginController> {
                                   ),
                                 ),
 
+                                const SizedBox(height: 18),
+
+                                // Terms & Conditions Checkbox
+                                Row(
+                                  children: [
+                                    Obx(
+                                      () => SizedBox(
+                                        width: 24,
+                                        height: 24,
+                                        child: Checkbox(
+                                          value: controller.isTermsAccepted.value,
+                                          onChanged: controller.toggleTerms,
+                                          activeColor: VoyentaColors.primary,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(6),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 10),
+                                    Expanded(
+                                      child: RichText(
+                                        text: TextSpan(
+                                          text: 'I agree to the ',
+                                          style: VoyentaTypography.bodyMd.copyWith(
+                                            color: VoyentaColors.onSurfaceVariant,
+                                            fontSize: 13,
+                                          ),
+                                          children: [
+                                            TextSpan(
+                                              text: 'Terms of Service',
+                                              style: VoyentaTypography.bodyMd.copyWith(
+                                                color: VoyentaColors.primary,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 13,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+
                                 const SizedBox(height: 24),
 
-                                // Sign In Button
+                                // Create Account Action Button
                                 SizedBox(
                                   width: double.infinity,
                                   height: 54,
@@ -222,7 +262,7 @@ class LoginView extends GetView<LoginController> {
                                     () => ElevatedButton(
                                       onPressed: controller.isLoading.value
                                           ? null
-                                          : controller.signIn,
+                                          : controller.createAccount,
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: VoyentaColors.primary,
                                         foregroundColor: Colors.white,
@@ -241,13 +281,20 @@ class LoginView extends GetView<LoginController> {
                                                 strokeWidth: 2.5,
                                               ),
                                             )
-                                          : Text(
-                                              'Sign In',
-                                              style: VoyentaTypography.bodyMd.copyWith(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16,
-                                              ),
+                                          : Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  'Create Account',
+                                                  style: VoyentaTypography.bodyMd.copyWith(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 16,
+                                                  ),
+                                                ),
+                                                const SizedBox(width: 8),
+                                                const Icon(Icons.arrow_forward_rounded, color: Colors.white, size: 20),
+                                              ],
                                             ),
                                     ),
                                   ),
@@ -291,7 +338,7 @@ class LoginView extends GetView<LoginController> {
                                       child: _buildSocialButton(
                                         label: 'Google',
                                         icon: Icons.g_mobiledata_rounded,
-                                        onTap: controller.signInWithGoogle,
+                                        onTap: controller.signUpWithGoogle,
                                       ),
                                     ),
                                     const SizedBox(width: 14),
@@ -299,7 +346,7 @@ class LoginView extends GetView<LoginController> {
                                       child: _buildSocialButton(
                                         label: 'Apple',
                                         icon: Icons.apple_rounded,
-                                        onTap: controller.signInWithApple,
+                                        onTap: controller.signUpWithApple,
                                       ),
                                     ),
                                   ],
@@ -310,14 +357,14 @@ class LoginView extends GetView<LoginController> {
                         ),
                       ),
 
-                      const SizedBox(height: 28),
+                      const SizedBox(height: 24),
 
-                      // Footer Sign Up Link
+                      // Footer Sign In Link
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "Don't have an account?",
+                            'Already have an account?',
                             style: VoyentaTypography.bodyMd.copyWith(
                               color: VoyentaColors.onSurfaceVariant,
                               fontSize: 14,
@@ -325,9 +372,9 @@ class LoginView extends GetView<LoginController> {
                           ),
                           const SizedBox(width: 6),
                           GestureDetector(
-                            onTap: () => Get.toNamed(AppRoutes.SIGN_UP),
+                            onTap: () => Get.back(),
                             child: Text(
-                              'Sign Up',
+                              'Sign In',
                               style: VoyentaTypography.bodyMd.copyWith(
                                 color: VoyentaColors.primary,
                                 fontWeight: FontWeight.bold,
@@ -348,51 +395,50 @@ class LoginView extends GetView<LoginController> {
     );
   }
 
-  Widget _buildFieldLabel(String label) {
-    return Text(
-      label,
-      style: VoyentaTypography.labelCaps.copyWith(
-        color: VoyentaColors.onSurfaceVariant.withValues(alpha: 0.8),
-        fontSize: 10,
-        fontWeight: FontWeight.bold,
-        letterSpacing: 1.1,
-      ),
-    );
-  }
-
-  Widget _buildTextField({
-    required TextEditingController controller,
+  Widget _buildInputPill({
+    required IconData icon,
     required String hintText,
+    required TextEditingController controller,
     bool obscureText = false,
     TextInputType keyboardType = TextInputType.text,
     Widget? suffixIcon,
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.7),
-        borderRadius: BorderRadius.circular(18),
+        color: Colors.white.withValues(alpha: 0.65),
+        borderRadius: BorderRadius.circular(20),
         border: Border.all(
           color: VoyentaColors.outlineVariant.withValues(alpha: 0.4),
+          width: 1.5,
         ),
       ),
-      child: TextField(
-        controller: controller,
-        obscureText: obscureText,
-        keyboardType: keyboardType,
-        style: VoyentaTypography.bodyMd.copyWith(
-          color: VoyentaColors.onSurface,
-          fontSize: 15,
-        ),
-        decoration: InputDecoration(
-          hintText: hintText,
-          hintStyle: TextStyle(
-            color: VoyentaColors.onSurfaceVariant.withValues(alpha: 0.4),
-            fontSize: 14,
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Row(
+        children: [
+          Icon(icon, color: VoyentaColors.onSurfaceVariant.withValues(alpha: 0.7), size: 22),
+          const SizedBox(width: 12),
+          Expanded(
+            child: TextField(
+              controller: controller,
+              obscureText: obscureText,
+              keyboardType: keyboardType,
+              style: VoyentaTypography.bodyMd.copyWith(
+                color: VoyentaColors.onSurface,
+                fontSize: 15,
+              ),
+              decoration: InputDecoration(
+                hintText: hintText,
+                hintStyle: TextStyle(
+                  color: VoyentaColors.onSurfaceVariant.withValues(alpha: 0.45),
+                  fontSize: 14,
+                ),
+                border: InputBorder.none,
+                contentPadding: const EdgeInsets.symmetric(vertical: 16),
+              ),
+            ),
           ),
-          suffixIcon: suffixIcon,
-          border: InputBorder.none,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
-        ),
+          ?suffixIcon,
+        ],
       ),
     );
   }
@@ -404,12 +450,12 @@ class LoginView extends GetView<LoginController> {
   }) {
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(18),
+      borderRadius: BorderRadius.circular(20),
       child: Container(
         height: 50,
         decoration: BoxDecoration(
-          color: Colors.white.withValues(alpha: 0.7),
-          borderRadius: BorderRadius.circular(18),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
           border: Border.all(
             color: VoyentaColors.outlineVariant.withValues(alpha: 0.4),
           ),
