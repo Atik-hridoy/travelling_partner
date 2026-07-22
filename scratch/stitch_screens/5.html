@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nova AI - Travelers &amp; Budget</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed": "#1e192b",
+                    "secondary-container": "#eaddff",
+                    "surface-container": "#f1ecf2",
+                    "background": "#fdf8fd",
+                    "outline": "#7a7582",
+                    "error-container": "#ffdad6",
+                    "on-background": "#1c1b1f",
+                    "surface-variant": "#e5e1e7",
+                    "error": "#ba1a1a",
+                    "primary-fixed": "#e9ddff",
+                    "primary-fixed-dim": "#cfbcff",
+                    "on-primary-fixed-variant": "#4f378a",
+                    "secondary": "#635a76",
+                    "on-secondary": "#ffffff",
+                    "tertiary-fixed": "#e8def9",
+                    "primary-container": "#6750a4",
+                    "inverse-surface": "#313034",
+                    "primary": "#4f378a",
+                    "outline-variant": "#cbc4d2",
+                    "on-error-container": "#93000a",
+                    "surface-tint": "#6750a4",
+                    "on-surface-variant": "#494551",
+                    "surface-container-highest": "#e5e1e7",
+                    "surface-dim": "#ddd9de",
+                    "on-tertiary-container": "#ded4ef",
+                    "on-error": "#ffffff",
+                    "on-primary-fixed": "#22005d",
+                    "tertiary-fixed-dim": "#ccc2dc",
+                    "tertiary": "#4a4459",
+                    "inverse-primary": "#cfbcff",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-high": "#ebe7ec",
+                    "tertiary-container": "#625b71",
+                    "on-primary-container": "#e0d2ff",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-fixed-dim": "#cdc1e2",
+                    "on-secondary-fixed": "#1f1730",
+                    "on-surface": "#1c1b1f",
+                    "secondary-fixed": "#eaddff",
+                    "surface-bright": "#fdf8fd",
+                    "on-primary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "chat-gap": "12px",
+                    "input-padding": "16px 24px",
+                    "gutter": "24px",
+                    "container-max": "1200px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "title-md": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 40px 40px rgba(79, 55, 138, 0.05);
+        }
+
+        .active-card {
+            border: 2px solid #4f378a;
+            background: rgba(103, 80, 164, 0.1);
+            transform: scale(1.02);
+        }
+
+        .range-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            background: #4f378a;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(79, 55, 138, 0.3);
+        }
+
+        .range-slider::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            background: #4f378a;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(79, 55, 138, 0.3);
+            border: none;
+        }
+        
+        .pulse-wave {
+            animation: pulse-wave 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse-wave {
+            0%, 100% { height: 8px; }
+            50% { height: 24px; }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-lg min-h-screen flex flex-col items-center">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface/70 backdrop-blur-xl border-b border-outline-variant/10">
+<div class="flex items-center justify-between px-margin-mobile h-16 max-w-container-max mx-auto">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary">Nova</h1>
+</div>
+<div class="flex items-center gap-4">
+<select class="bg-transparent border-none font-title-md text-primary focus:ring-0 cursor-pointer" id="currency-selector">
+<option value="USD">USD</option>
+<option value="EUR">EUR</option>
+<option value="JPY">JPY</option>
+</select>
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-primary-container/20 p-2 rounded-full transition-colors active:scale-95 duration-200">more_vert</button>
+</div>
+</div>
+</header>
+<main class="w-full max-w-[720px] px-margin-mobile pt-24 pb-32 flex flex-col gap-8">
+<!-- Nova Chat Message -->
+<div class="flex gap-4 items-start">
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex-shrink-0 flex items-center justify-center mt-1">
+<span class="material-symbols-outlined text-primary text-[18px]" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<div class="glass p-5 rounded-2xl rounded-tl-none max-w-[85%]">
+<p class="font-body-lg text-on-surface">Who's joining you and what's your budget for this adventure?</p>
+</div>
+</div>
+<!-- Traveler Selection (Asymmetric Bento-like grid) -->
+<section class="flex flex-col gap-4">
+<h2 class="font-title-md text-title-md text-primary ml-1">Travelers</h2>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<!-- Solo -->
+<button class="glass p-4 rounded-xl flex flex-col items-center gap-3 transition-all duration-300 hover:border-primary/50 group active-card" onclick="selectTraveler(this)">
+<div class="w-full aspect-square rounded-lg overflow-hidden bg-surface-variant/30 flex items-center justify-center">
+<img class="w-full h-full object-cover" data-alt="A minimalist digital illustration of a single traveler standing on a mountain peak looking at a vibrant sunrise. The style is clean, modern vector art with a palette of soft purples and whites, matching a high-end AI assistant interface. The character is simplified and sleek." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXJpSMNbA1h1wo7erFqPCsACeN-uFRpZ96dU19aayzLXBuVHP5r2SazRwmPPgv53R2Vrqg2yvIMyelELWQzBGCLkzbRkEjogWTv3QaSMKXTRUm8_orp3aYj6U4hCCiypGHgES-TWh-UFM34clm16veg9oyiyFhI8p6IPyZSPdJA0lWPM_IlONdkv_NHDWESffFcib1ZpHQKlihvmcloQCxPxVqb7QiYwXQ5VyW3rUOsczgxtQ9C_TX9Wig_wowbQQKrVev0K88YNOU"/>
+</div>
+<span class="font-label-sm text-label-sm font-bold uppercase tracking-wider">Solo</span>
+</button>
+<!-- Couple -->
+<button class="glass p-4 rounded-xl flex flex-col items-center gap-3 transition-all duration-300 hover:border-primary/50 group" onclick="selectTraveler(this)">
+<div class="w-full aspect-square rounded-lg overflow-hidden bg-surface-variant/30 flex items-center justify-center">
+<img class="w-full h-full object-cover" data-alt="A modern vector illustration of a couple standing together on a balcony overlooking a moonlit city skyline. The aesthetic is minimalist and elegant, using shades of primary purple and soft lavender with high-key lighting. The scene captures a quiet, intimate moment in a premium travel context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCodfm7nrR-ylmm0lBYC6t5oeoHcPoOIYYo-sW2MdAsMMJHCuUPhbpdBb1Y0eKUJVR3mWfFagfHno27UqK7K3Oy4jg3ioPUXFaqGNpUBUuJkJgGPfJ0En34Mxsxa_I2dUcGnuMPQGdiqTT57fq-zgRaFM8NCKiQdXUB0hXFBVV2JdKeWE_qTkl9bp8s6JfPpLkR_ZR27zkZ_XeWXV6SvE0rCBIBEy8DBJ0hqIWAUu6JM_Bn2MLWpexPhw-10AmiSiyAfEH4WRSraYSE"/>
+</div>
+<span class="font-label-sm text-label-sm font-bold uppercase tracking-wider">Couple</span>
+</button>
+<!-- Family -->
+<button class="glass p-4 rounded-xl flex flex-col items-center gap-3 transition-all duration-300 hover:border-primary/50 group" onclick="selectTraveler(this)">
+<div class="w-full aspect-square rounded-lg overflow-hidden bg-surface-variant/30 flex items-center justify-center">
+<img class="w-full h-full object-cover" data-alt="A bright and airy digital illustration of a family of four playing on a pristine beach with turquoise waves in the background. The art style is consistent with Apple-inspired minimalism, featuring soft gradients of white and deep violet. The atmosphere is joyful, clean, and highly sophisticated." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdjqw23eStAsVoEufelDFnoJtfMbv84eEx7t_dSRWEhUN8e2HQGCF3lsSOlBC07SAv5z2zQ4ZZr2kdS3h0LtLkz7iLzH7f47BjvglTPgtdlcWodteJXi6q4KlD4h1HPZ5XnXdjl3uDF4B_Y0iX6Qf-tkZjpM5RXO_l1-Gy2QzlSW1cx8AHWigBbxxkENE4WGR7pl3Z5I06qqWhLhD8CN4yd0Y8Em_f2PrAghw8b5ArNarp2vv9-TMkHtOr0PQWO-a_5rh6P7sHLk70"/>
+</div>
+<span class="font-label-sm text-label-sm font-bold uppercase tracking-wider">Family</span>
+</button>
+<!-- Group -->
+<button class="glass p-4 rounded-xl flex flex-col items-center gap-3 transition-all duration-300 hover:border-primary/50 group" onclick="selectTraveler(this)">
+<div class="w-full aspect-square rounded-lg overflow-hidden bg-surface-variant/30 flex items-center justify-center">
+<img class="w-full h-full object-cover" data-alt="A sleek minimalist vector illustration depicting a group of friends sharing a meal at an outdoor terrace in a European city at dusk. The lighting is warm and ambient, contrasted with a clean white and purple brand palette. The illustration is professional, high-end, and perfectly aligned with a luxury travel AI vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFD6u4LUJ25zSubOHy9C4PQsO9nf896sHBWLYDlZ6IuNEfWCstP5qg_OGQmj9C3rGbdLA8v0HT05aARojIRay3tGriT79ZvDAqZu5fod9QOoF-_56gewbo1pcoWjhMZ-E0RvotB_eP-FvKeEM_ucl6lwOSIgQ8ptxbtaPSutLZ6P_BYq1zoRKC7O0YpqFRb_S1nESm0bDchbpdXpH-ptLvGvO1a4KmcYYieSrZ4JWmbBjUa7Zn3dnXVXa6sfIR4bqv9XE6m6OKQBxS"/>
+</div>
+<span class="font-label-sm text-label-sm font-bold uppercase tracking-wider">Group</span>
+</button>
+</div>
+</section>
+<!-- Budget Selection -->
+<section class="glass p-8 rounded-3xl flex flex-col gap-8">
+<div class="flex justify-between items-end">
+<div>
+<h2 class="font-title-md text-title-md text-primary mb-1">Budget Level</h2>
+<p class="font-body-md text-on-surface-variant" id="budget-desc">Essential comfort and local gems.</p>
+</div>
+<div class="text-right">
+<div class="text-primary font-bold font-headline-lg" id="estimated-cost">$450</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant opacity-60">EST. DAILY TOTAL</div>
+</div>
+</div>
+<div class="relative py-4">
+<input class="range-slider w-full h-2 bg-surface-variant rounded-lg appearance-none cursor-pointer" id="budget-slider" max="4" min="1" type="range" value="2"/>
+<div class="flex justify-between mt-4 px-1">
+<span class="font-label-sm text-label-sm font-bold text-on-surface-variant">Budget</span>
+<span class="font-label-sm text-label-sm font-bold text-primary">Comfort</span>
+<span class="font-label-sm text-label-sm font-bold text-on-surface-variant">Luxury</span>
+<span class="font-label-sm text-label-sm font-bold text-on-surface-variant">Ultra</span>
+</div>
+</div>
+<!-- Chips for suggested adds -->
+<div class="flex flex-wrap gap-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest w-full mb-2">Includes</span>
+<div class="flex flex-wrap gap-3">
+<span class="px-4 py-2 rounded-full border border-primary text-primary font-label-sm text-label-sm hover:bg-primary-container/20 transition-colors cursor-default">3★ Hotels</span>
+<span class="px-4 py-2 rounded-full border border-primary text-primary font-label-sm text-label-sm hover:bg-primary-container/20 transition-colors cursor-default">Public Transport</span>
+<span class="px-4 py-2 rounded-full border border-primary text-primary font-label-sm text-label-sm hover:bg-primary-container/20 transition-colors cursor-default">Guided Tours</span>
+</div>
+</div>
+</section>
+<!-- Dynamic Nova Response Simulation -->
+<div class="flex gap-4 items-start opacity-0 translate-y-4 transition-all duration-500" id="ai-typing">
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex-shrink-0 flex items-center justify-center mt-1">
+<span class="material-symbols-outlined text-primary text-[18px]" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<div class="glass p-5 rounded-2xl rounded-tl-none flex items-center gap-1.5">
+<div class="w-1.5 bg-primary rounded-full pulse-wave" style="animation-delay: 0s;"></div>
+<div class="w-1.5 bg-primary rounded-full pulse-wave" style="animation-delay: 0.2s;"></div>
+<div class="w-1.5 bg-primary rounded-full pulse-wave" style="animation-delay: 0.4s;"></div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Shell -->
+<nav class="fixed bottom-0 w-full z-50 bg-surface/70 backdrop-blur-xl border-t border-outline-variant/10 rounded-t-xl shadow-lg shadow-primary/5">
+<div class="flex justify-around items-center px-4 py-3 h-20 max-w-container-max mx-auto">
+<button class="flex flex-col items-center justify-center text-on-surface-variant opacity-60 hover:text-primary transition-opacity duration-200">
+<span class="material-symbols-outlined">arrow_back</span>
+<span class="font-label-sm text-label-sm">Back</span>
+</button>
+<div class="flex flex-col items-center justify-center text-primary font-bold">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">horizontal_rule</span>
+<span class="font-label-sm text-label-sm">Progress</span>
+</div>
+<button class="flex flex-col items-center justify-center text-on-surface-variant opacity-60 hover:text-primary transition-opacity duration-200 group" onclick="nextStep()">
+<div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white mb-1 shadow-lg shadow-primary/20 group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined">arrow_forward</span>
+</div>
+<span class="font-label-sm text-label-sm">Next</span>
+</button>
+</div>
+</nav>
+<script>
+        const slider = document.getElementById('budget-slider');
+        const costDisplay = document.getElementById('estimated-cost');
+        const descDisplay = document.getElementById('budget-desc');
+        const currencySelector = document.getElementById('currency-selector');
+        const aiTyping = document.getElementById('ai-typing');
+
+        const budgetLevels = {
+            1: { cost: 150, label: "Budget", desc: "Backpacker style, hostels, and street food.", includes: ["Hostels", "Walking", "Street Food"] },
+            2: { cost: 450, label: "Comfort", desc: "Essential comfort and local gems.", includes: ["3★ Hotels", "Public Transport", "Bistros"] },
+            3: { cost: 1200, label: "Luxury", desc: "Premium stays and private experiences.", includes: ["5★ Resorts", "Private Drivers", "Fine Dining"] },
+            4: { cost: 2500, label: "Ultra Luxury", desc: "Ultimate exclusivity and bespoke service.", includes: ["Palatial Suites", "Helicopters", "Michelin Dining"] }
+        };
+
+        const exchangeRates = {
+            "USD": 1,
+            "EUR": 0.92,
+            "JPY": 150
+        };
+
+        function updateDisplay() {
+            const val = slider.value;
+            const currency = currencySelector.value;
+            const level = budgetLevels[val];
+            
+            let symbol = "$";
+            if (currency === "EUR") symbol = "€";
+            if (currency === "JPY") symbol = "¥";
+
+            const localCost = Math.round(level.cost * exchangeRates[currency]);
+            costDisplay.innerText = `${symbol}${localCost.toLocaleString()}`;
+            descDisplay.innerText = level.desc;
+
+            // Update label colors
+            const labels = document.querySelectorAll('.relative.py-4 span');
+            labels.forEach((span, i) => {
+                if (i + 1 == val) {
+                    span.classList.add('text-primary');
+                    span.classList.remove('text-on-surface-variant');
+                } else {
+                    span.classList.remove('text-primary');
+                    span.classList.add('text-on-surface-variant');
+                }
+            });
+        }
+
+        slider.addEventListener('input', updateDisplay);
+        currencySelector.addEventListener('change', updateDisplay);
+
+        function selectTraveler(btn) {
+            document.querySelectorAll('button.glass').forEach(b => b.classList.remove('active-card'));
+            btn.classList.add('active-card');
+            
+            // Show Nova response
+            aiTyping.style.opacity = "1";
+            aiTyping.style.transform = "translateY(0)";
+            
+            setTimeout(() => {
+                aiTyping.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-primary-fixed flex-shrink-0 flex items-center justify-center mt-1">
+                        <span class="material-symbols-outlined text-primary text-[18px]" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+                    </div>
+                    <div class="glass p-5 rounded-2xl rounded-tl-none max-w-[85%]">
+                        <p class="font-body-lg text-on-surface">Excellent choice. I'm tailoring the itinerary for a ${btn.innerText.toLowerCase()} trip with a ${budgetLevels[slider.value].label.toLowerCase()} touch.</p>
+                    </div>
+                `;
+            }, 1200);
+        }
+
+        function nextStep() {
+            // Animation for transition
+            document.body.style.opacity = "0";
+            document.body.style.transition = "opacity 0.5s ease";
+            setTimeout(() => {
+                console.log("Navigating to next step...");
+            }, 500);
+        }
+
+        // Initialize
+        updateDisplay();
+    </script>
+</body></html>

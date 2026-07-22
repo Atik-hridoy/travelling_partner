@@ -1,0 +1,341 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Trip Preview - Kyoto</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(253, 247, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .squircle {
+            border-radius: 2.5rem;
+        }
+        .timeline-spine {
+            position: relative;
+        }
+        .timeline-spine::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #e6e0e9;
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); opacity: 0.5; }
+            50% { transform: scale(1.05); opacity: 0.3; }
+            100% { transform: scale(0.95); opacity: 0.5; }
+        }
+        .animate-pulse-ring {
+            animation: pulse-ring 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#63597c",
+                        "on-surface": "#1d1b20",
+                        "on-secondary-fixed": "#1f1635",
+                        "surface-bright": "#fdf7ff",
+                        "on-tertiary-fixed-variant": "#594400",
+                        "tertiary-container": "#c9a74d",
+                        "primary-fixed-dim": "#cfbcff",
+                        "on-secondary-fixed-variant": "#4b4263",
+                        "on-primary-fixed-variant": "#4f378a",
+                        "outline-variant": "#cbc4d2",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container": "#f2ecf4",
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#f8f2fa",
+                        "on-background": "#1d1b20",
+                        "surface-container-high": "#ece6ee",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "surface-dim": "#ded8e0",
+                        "primary-fixed": "#e9ddff",
+                        "secondary-fixed": "#e9ddff",
+                        "on-tertiary-container": "#503d00",
+                        "on-secondary-container": "#645a7d",
+                        "secondary-container": "#e1d4fd",
+                        "primary-container": "#6750a4",
+                        "surface": "#fdf7ff",
+                        "primary": "#4f378a",
+                        "error": "#ba1a1a",
+                        "inverse-primary": "#cfbcff",
+                        "background": "#fdf7ff",
+                        "surface-variant": "#e6e0e9",
+                        "tertiary-fixed-dim": "#e7c365",
+                        "secondary-fixed-dim": "#cdc0e9",
+                        "inverse-on-surface": "#f5eff7",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#765b00",
+                        "on-primary-fixed": "#22005d",
+                        "surface-tint": "#6750a4",
+                        "surface-container-highest": "#e6e0e9",
+                        "inverse-surface": "#322f35",
+                        "on-primary-container": "#e0d2ff",
+                        "on-surface-variant": "#494551",
+                        "on-tertiary-fixed": "#241a00",
+                        "tertiary-fixed": "#ffdf93",
+                        "outline": "#7a7582",
+                        "on-tertiary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Inter"],
+                        "body-md": ["Inter"],
+                        "mono-technical": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "display-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                        "mono-technical": ["13px", {"lineHeight": "1.4", "letterSpacing": "0", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                        "display-lg-mobile": ["36px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-primary-container">
+<!-- Top Navigation -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-4 md:px-6 h-16 bg-surface/80 dark:bg-surface-container-highest/80 backdrop-blur-xl border-b border-outline-variant/30 shadow-sm">
+<div class="flex items-center gap-4">
+<button class="p-2 text-primary hover:bg-primary/5 transition-colors active:scale-95 duration-150 ease-in-out">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="font-headline-md text-headline-md-mobile md:text-headline-md text-primary">Create New Trip</h1>
+</div>
+<button class="text-primary font-semibold hover:bg-primary/5 transition-colors px-4 py-2 rounded-lg active:scale-95 duration-150">
+            Skip
+        </button>
+</header>
+<main class="pt-16 pb-32 max-w-[1440px] mx-auto px-4 md:px-container-margin">
+<!-- Hero Section -->
+<section class="mt-8 mb-12">
+<div class="relative w-full h-[400px] md:h-[500px] rounded-[2rem] overflow-hidden shadow-2xl group" style="opacity: 1; transform: translateY(0px); transition: 0.6s cubic-bezier(0.22, 1, 0.36, 1);">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-alt="A cinematic, high-resolution aerial view of a traditional Japanese pagoda in Kyoto surrounded by vibrant pink cherry blossoms at dusk. The soft, golden hour light bathes the historic wooden architecture, while the distant mountains are shrouded in a delicate blue mist. The aesthetic is serene, luxurious, and clean, mirroring a high-end travel editorial with a focus on heritage and natural beauty." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCJXCWA84VP8Eyx1T28PedjYLoYoV6vi_y5CeFaEMH32q9mAqtNsQU-yFp7LIYv_que7WO-_fvbbT5xElX9tI_0ZNbTr1qCOt2skuL7I28DgpWHlkV0syJX2-M4DiTodD31f0C4tx27dH8mpoCuMbgP7thjmhDwhBTDrMOiWwgCLlIG48lwoClMDyvhdWGvvni471LV7c4XXXoce-oAjtVXdXq4JVlnlNILZQRU6ZJ7MqHAuWtIFyUK57hdseev1K730iIxwz5gp9Dt')">
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+<div class="absolute bottom-8 left-8 text-white">
+<span class="inline-block px-3 py-1 rounded-full bg-white/20 backdrop-blur-md font-label-caps text-label-caps mb-4">PREVIEW MODE</span>
+<h2 class="font-display-lg text-display-lg-mobile md:text-display-lg tracking-tighter mb-2">Kyoto Eternal</h2>
+<p class="font-body-lg text-white/80 max-w-xl">A masterfully curated 7-day journey through the heart of Japanese tradition, optimized for comfort and hidden cultural discoveries.</p>
+</div>
+</div>
+</section>
+<!-- Bento Grid Stats -->
+<section class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+<!-- AI Match Card -->
+<div class="md:col-span-2 bg-primary-container text-on-primary-container p-8 rounded-[2rem] flex items-center justify-between shadow-sm" style="opacity: 1; transform: translateY(0px); transition: 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.1s;">
+<div>
+<h3 class="font-label-caps text-label-caps opacity-80 mb-2 uppercase">Match Accuracy</h3>
+<p class="font-display-lg text-display-lg-mobile">98% Match</p>
+<p class="font-body-md opacity-90 mt-2">Perfectly aligned with your preference for slow travel and architectural heritage.</p>
+</div>
+<div class="relative w-24 h-24 flex items-center justify-center">
+<div class="absolute inset-0 border-4 border-on-primary-container/20 rounded-full"></div>
+<div class="absolute inset-0 border-4 border-on-primary-container rounded-full" style="clip-path: polygon(0 0, 100% 0, 100% 98%, 0 98%);"></div>
+<span class="material-symbols-outlined text-4xl">verified</span>
+</div>
+</div>
+<!-- Quick Stats -->
+<div class="bg-surface-container-high p-8 rounded-[2rem] shadow-sm" style="opacity: 1; transform: translateY(0px); transition: 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;">
+<span class="material-symbols-outlined text-primary mb-4">calendar_today</span>
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-1">DURATION</h3>
+<p class="font-headline-md">7 Days</p>
+<p class="font-body-md text-on-surface-variant mt-2">Oct 12 — Oct 19</p>
+</div>
+<div class="bg-surface-container-high p-8 rounded-[2rem] shadow-sm" style="opacity: 1; transform: translateY(0px); transition: 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.3s;">
+<span class="material-symbols-outlined text-primary mb-4">payments</span>
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-1">BUDGET</h3>
+<p class="font-headline-md">Comfort</p>
+<p class="font-body-md text-on-surface-variant mt-2">Est. $3,200 — $4,500</p>
+</div>
+</section>
+<!-- Passport View Content -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
+<!-- Left: Highlights & Timeline -->
+<div class="lg:col-span-2 space-y-12" style="opacity: 1; transform: translateY(0px); transition: 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.4s;">
+<div>
+<h3 class="font-headline-md mb-8 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">stars</span>
+                        Trip Highlights
+                    </h3>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="flex items-center gap-4 p-4 rounded-2xl bg-surface-container-low border border-outline-variant/20">
+<div class="w-12 h-12 rounded-xl bg-secondary-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">explore</span>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant">ACTIVITIES</p>
+<p class="font-body-md font-bold">12 Curated Experiences</p>
+</div>
+</div>
+<div class="flex items-center gap-4 p-4 rounded-2xl bg-surface-container-low border border-outline-variant/20">
+<div class="w-12 h-12 rounded-xl bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed">
+<span class="material-symbols-outlined">diamond</span>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant">EXCLUSIVES</p>
+<p class="font-body-md font-bold">4 Hidden Gems</p>
+</div>
+</div>
+</div>
+</div>
+<div class="timeline-spine pl-12 space-y-10">
+<!-- Day 1 Node -->
+<div class="relative">
+<div class="absolute -left-[52px] w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white z-10 shadow-lg">
+<span class="material-symbols-outlined text-sm">flight_land</span>
+</div>
+<div>
+<h4 class="font-headline-md text-on-surface mb-2">Day 1: Arrival &amp; Zen Immersion</h4>
+<p class="font-body-md text-on-surface-variant mb-4">Check-in at Ritz-Carlton Kyoto followed by a private evening meditation at a 14th-century Zen temple.</p>
+<div class="flex gap-2">
+<span class="px-3 py-1 bg-surface-variant rounded-full text-xs font-semibold">Luxury Stay</span>
+<span class="px-3 py-1 bg-surface-variant rounded-full text-xs font-semibold">Private Guide</span>
+</div>
+</div>
+</div>
+<!-- Day 4 Node (Gem) -->
+<div class="relative">
+<div class="absolute -left-[52px] w-10 h-10 bg-tertiary-container rounded-full flex items-center justify-center text-on-tertiary-container z-10 shadow-lg ring-4 ring-tertiary-fixed-dim/20">
+<span class="material-symbols-outlined text-sm">auto_awesome</span>
+</div>
+<div>
+<h4 class="font-headline-md text-on-surface mb-2">Day 4: The Forgotten Valley</h4>
+<div class="mb-4 inline-flex items-center gap-2 px-2 py-1 bg-tertiary-fixed text-on-tertiary-fixed rounded text-xs font-bold tracking-widest uppercase">
+<span class="material-symbols-outlined text-xs">workspace_premium</span> Hidden Gem
+                            </div>
+<p class="font-body-md text-on-surface-variant">A trek to a secluded forest shrine rarely visited by tourists, featuring a private tea ceremony by the waterfall.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Passport Sidebar -->
+<aside class="lg:col-sticky lg:top-24" style="opacity: 1; transform: translateY(0px); transition: 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.5s;">
+<div class="bg-surface-container-lowest p-8 rounded-[2.5rem] border border-outline-variant/30 shadow-2xl relative overflow-hidden">
+<!-- Micro Decorative Element -->
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16 blur-2xl"></div>
+<div class="flex items-center justify-between mb-8">
+<h3 class="font-headline-md">Trip Passport</h3>
+<span class="material-symbols-outlined text-primary/40">qr_code_2</span>
+</div>
+<div class="space-y-6">
+<div class="p-4 rounded-2xl bg-surface-container">
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-2">PRIMARY DESTINATION</p>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">location_on</span>
+<span class="font-body-lg font-bold">Kyoto, Japan</span>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-center py-3 border-b border-outline-variant/20">
+<span class="text-on-surface-variant">Vibe</span>
+<span class="font-semibold">Zen &amp; Luxury</span>
+</div>
+<div class="flex justify-between items-center py-3 border-b border-outline-variant/20">
+<span class="text-on-surface-variant">Pace</span>
+<span class="font-semibold">Immersive</span>
+</div>
+<div class="flex justify-between items-center py-3">
+<span class="text-on-surface-variant">Travelers</span>
+<span class="font-semibold">2 Adults</span>
+</div>
+</div>
+<div class="pt-4">
+<div class="flex items-center gap-2 text-primary font-semibold mb-4">
+<span class="material-symbols-outlined">shield_with_heart</span>
+<span class="text-sm">Safety Score: Excellent</span>
+</div>
+<div class="h-2 w-full bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 95%;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Small AI Assistant Tooltip -->
+<div class="mt-6 glass-panel p-4 rounded-2xl border border-primary/10 flex items-start gap-4">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-primary-container text-sm">smart_toy</span>
+</div>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                        "I've optimized this route to avoid the midday crowds at Fushimi Inari. You'll have 40% more quiet time."
+                    </p>
+</div>
+</aside>
+</section>
+</main>
+<!-- Bottom Action Bar (Simulated Shared Component) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-6 py-4 pb-safe bg-surface-container-lowest/80 dark:bg-surface-dim/80 backdrop-blur-lg border-t border-outline-variant/20 shadow-[0_-10px_20px_rgba(37,99,235,0.05)] rounded-t-xl">
+<div class="w-full max-w-[1440px] mx-auto flex flex-col md:flex-row gap-4 items-center justify-between">
+<div class="hidden md:flex flex-col">
+<p class="font-label-caps text-label-caps text-on-surface-variant">ESTIMATED TOTAL</p>
+<p class="font-headline-md text-primary">$3,840.00</p>
+</div>
+<div class="flex gap-4 w-full md:w-auto">
+<button class="flex-1 md:w-48 px-6 py-4 rounded-full border border-primary text-primary font-semibold hover:bg-primary/5 transition-all active:scale-95 duration-200" onclick="console.log('Customize Trip clicked')">
+                    Customize Trip
+                </button>
+<button class="flex-1 md:w-64 px-6 py-4 rounded-full bg-primary text-on-primary font-bold shadow-lg shadow-primary/20 hover:scale-[1.02] transition-all active:scale-95 duration-200 flex items-center justify-center gap-2" onclick="window.location.href='{{DATA:SCREEN:SCREEN_4}}'">
+                    Create Trip
+                    <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</nav>
+<!-- Micro-interaction Script -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Subtle parallax effect on hero
+            window.addEventListener('scroll', () => {
+                const scroll = window.scrollY;
+                const hero = document.querySelector('.group-hover\\:scale-105');
+                if (hero) {
+                    hero.style.transform = `translateY(${scroll * 0.1}px) scale(${1 + scroll * 0.0002})`;
+                }
+            });
+
+            // Smooth entrance animations for cards
+            const cards = document.querySelectorAll('section > div, section > aside');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = `all 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${index * 0.1}s`;
+                
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100);
+            });
+        });
+    </script>
+
+
+
+</body></html>

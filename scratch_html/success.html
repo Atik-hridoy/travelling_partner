@@ -1,0 +1,259 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Trip Success - Travel OS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary": "#63597c",
+                    "on-surface": "#1d1b20",
+                    "on-secondary-fixed": "#1f1635",
+                    "surface-bright": "#fdf7ff",
+                    "on-tertiary-fixed-variant": "#594400",
+                    "tertiary-container": "#c9a74d",
+                    "primary-fixed-dim": "#cfbcff",
+                    "on-secondary-fixed-variant": "#4b4263",
+                    "on-primary-fixed-variant": "#4f378a",
+                    "outline-variant": "#cbc4d2",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container": "#f2ecf4",
+                    "on-error-container": "#93000a",
+                    "on-primary": "#ffffff",
+                    "surface-container-low": "#f8f2fa",
+                    "on-background": "#1d1b20",
+                    "surface-container-high": "#ece6ee",
+                    "on-secondary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "surface-dim": "#ded8e0",
+                    "primary-fixed": "#e9ddff",
+                    "secondary-fixed": "#e9ddff",
+                    "on-tertiary-container": "#503d00",
+                    "on-secondary-container": "#645a7d",
+                    "secondary-container": "#e1d4fd",
+                    "primary-container": "#6750a4",
+                    "surface": "#fdf7ff",
+                    "primary": "#4f378a",
+                    "error": "#ba1a1a",
+                    "inverse-primary": "#cfbcff",
+                    "background": "#fdf7ff",
+                    "surface-variant": "#e6e0e9",
+                    "tertiary-fixed-dim": "#e7c365",
+                    "secondary-fixed-dim": "#cdc0e9",
+                    "inverse-on-surface": "#f5eff7",
+                    "error-container": "#ffdad6",
+                    "tertiary": "#765b00",
+                    "on-primary-fixed": "#22005d",
+                    "surface-tint": "#6750a4",
+                    "surface-container-highest": "#e6e0e9",
+                    "inverse-surface": "#322f35",
+                    "on-primary-container": "#e0d2ff",
+                    "on-surface-variant": "#494551",
+                    "on-tertiary-fixed": "#241a00",
+                    "tertiary-fixed": "#ffdf93",
+                    "outline": "#7a7582",
+                    "on-tertiary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "section-gap": "4rem",
+                    "ai-bubble-padding": "1rem 1.25rem",
+                    "container-margin": "2rem",
+                    "gutter": "1.5rem",
+                    "card-padding": "1.5rem"
+            },
+            "fontFamily": {
+                    "label-caps": ["Inter"],
+                    "body-md": ["Inter"],
+                    "mono-technical": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "display-lg-mobile": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Inter"]
+            },
+            "fontSize": {
+                    "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                    "mono-technical": ["13px", {"lineHeight": "1.4", "letterSpacing": "0", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                    "display-lg-mobile": ["36px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .gradient-bg {
+            background: radial-gradient(circle at top right, #e9ddff 0%, #fdf7ff 50%, #ffffff 100%);
+        }
+        .success-animation-ring {
+            animation: ping-slow 3s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+        @keyframes ping-slow {
+            75%, 100% { transform: scale(1.5); opacity: 0; }
+        }
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen overflow-x-hidden gradient-bg">
+<!-- Top AppBar (from JSON) -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-4 md:px-6 h-16 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/30 shadow-sm">
+<div class="flex items-center gap-4">
+<button class="p-2 text-primary hover:bg-primary/5 transition-colors active:scale-95 duration-150 ease-in-out rounded-full">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="font-headline-md text-headline-md-mobile md:text-headline-md text-primary">Success</h1>
+</div>
+<button class="font-label-caps text-label-caps text-on-surface-variant hover:bg-primary/5 px-4 py-2 rounded-full transition-colors">
+            Skip
+        </button>
+</header>
+<main class="pt-24 pb-32 px-4 md:px-container-margin max-w-4xl mx-auto flex flex-col items-center">
+<!-- Celebratory State -->
+<section class="text-center mb-12 flex flex-col items-center w-full">
+<div class="relative w-32 h-32 md:w-48 md:h-48 mb-8 flex items-center justify-center">
+<div class="absolute inset-0 bg-primary/10 rounded-full success-animation-ring"></div>
+<div class="absolute inset-4 bg-primary/20 rounded-full success-animation-ring" style="animation-delay: 1s;"></div>
+<div class="relative z-10 w-full h-full bg-primary rounded-full flex items-center justify-center shadow-lg transform hover:scale-105 transition-transform duration-500">
+<span class="material-symbols-outlined text-white text-6xl md:text-8xl" style="font-variation-settings: 'wght' 600;">check</span>
+</div>
+</div>
+<h2 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-primary tracking-tighter mb-4 animate-in fade-in slide-in-from-bottom-4 duration-700">
+                Your Adventure is Ready!
+            </h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-md mx-auto animate-in fade-in slide-in-from-bottom-6 duration-700 delay-100">
+                Your bespoke Kyoto itinerary has been synchronized with the Invisible Concierge. Your journey begins soon.
+            </p>
+</section>
+<!-- Trip Summary Card -->
+<div class="w-full max-w-2xl glass-card rounded-3xl p-6 md:p-8 shadow-sm mb-12 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
+<div class="flex flex-col md:flex-row gap-6">
+<!-- Map/Location Image -->
+<div class="w-full md:w-1/3 aspect-square rounded-2xl overflow-hidden relative shadow-inner">
+<img class="w-full h-full object-cover" data-alt="A cinematic, high-angle aerial view of a traditional Kyoto street at dawn, featuring wooden machiya houses and a distant pagoda. The lighting is soft and golden, with a cool morning mist settling over the tile roofs. The color palette emphasizes warm timbers and cool slate grays, maintaining a premium and tranquil luxury travel aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaCkHvPHsOWm_3K1jpzUx1FkAvxm_YmpykzJjE4Q37D55ym2W-bMdWtk3o2nQ58g-Z6agCM88VFkQw2krNW3ldNazFVfLxTkdi_lakbQKZVnB5plYlYkjYO5PRr-A9SKCA7FMOrTeF6hvgHPIA_sPPfLXPEk7yfx8IzqRIrP1iwE0HYPs5vTvJF3T7cmDZ7GNqkRZhbPtOO_96csQnvYpD-5UwaVAn8FGDJhnc8UKLp893dkZUpWQB9bLkQpBbY-SNReyYDnfo3bOm">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
+<span class="font-label-caps text-label-caps text-white bg-white/20 backdrop-blur-md px-3 py-1 rounded-full">KYOTO, JAPAN</span>
+</div>
+</div>
+<!-- Details -->
+<div class="flex-1 flex flex-col justify-center">
+<div class="mb-6">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-1">Autumn Zen Exploration</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Oct 12 — Oct 19, 2024</p>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container text-xl">hotel</span>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant">Stay</p>
+<p class="font-body-md text-body-md font-semibold">Aman Kyoto</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-tertiary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-tertiary-container text-xl">restaurant</span>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant">Dining</p>
+<p class="font-body-md text-body-md font-semibold">14 Curation</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Primary Actions -->
+<div class="w-full max-w-sm flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-10 duration-700 delay-300">
+<button class="w-full bg-primary text-on-primary font-headline-md text-headline-md py-4 rounded-2xl shadow-lg hover:shadow-primary/20 hover:-translate-y-0.5 active:scale-95 transition-all duration-200" onclick="window.location.href='{{DATA:SCREEN:SCREEN_46}}'">
+                Go to Dashboard
+            </button>
+<div class="grid grid-cols-2 gap-4">
+<button class="flex items-center justify-center gap-2 py-3 px-4 rounded-xl border-1.5 border-outline-variant text-on-surface-variant hover:bg-surface-container transition-colors active:scale-95" onclick="this.classList.add('bg-primary/10'); setTimeout(() =&gt; this.classList.remove('bg-primary/10'), 200);">
+<span class="material-symbols-outlined">share</span>
+<span class="font-body-md text-body-md">Share</span>
+</button>
+<button class="flex items-center justify-center gap-2 py-3 px-4 rounded-xl border-1.5 border-outline-variant text-on-surface-variant hover:bg-surface-container transition-colors active:scale-95" onclick="this.classList.add('bg-primary/10'); setTimeout(() =&gt; this.classList.remove('bg-primary/10'), 200);">
+<span class="material-symbols-outlined">download</span>
+<span class="font-body-md text-body-md">Offline</span>
+</button>
+</div>
+</div>
+</main>
+<!-- Bottom Nav (from JSON) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-6 py-4 pb-safe bg-surface-container-lowest/80 backdrop-blur-lg border-t border-outline-variant/20 shadow-[0_-10px_20px_rgba(37,99,235,0.05)] rounded-t-xl">
+<div class="flex flex-col items-center justify-center text-on-surface-variant opacity-60 hover:opacity-100 transition-opacity active:translate-y-0.5 duration-200">
+<span class="material-symbols-outlined">hourglass_top</span>
+<span class="font-label-caps text-label-caps">Progress</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-6 py-2 transition-all active:translate-y-0.5 duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-caps text-label-caps">Complete</span>
+</div>
+</nav>
+<script>
+        // Simple confetti effect for celebration
+        function createConfetti() {
+            const colors = ['#4f378a', '#6750a4', '#cfbcff', '#e7c365'];
+            for (let i = 0; i < 40; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'absolute w-2 h-2 rounded-full pointer-events-none z-0';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = '-10px';
+                confetti.style.opacity = Math.random();
+                confetti.style.transform = `scale(${Math.random()})`;
+                
+                document.body.appendChild(confetti);
+                
+                const animation = confetti.animate([
+                    { transform: `translate3d(0, 0, 0) rotate(0deg)`, opacity: 1 },
+                    { transform: `translate3d(${(Math.random() - 0.5) * 200}px, 100vh, 0) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+                ], {
+                    duration: Math.random() * 3000 + 3000,
+                    easing: 'cubic-bezier(0, .9, .57, 1)',
+                    delay: Math.random() * 1000
+                });
+                
+                animation.onfinish = () => confetti.remove();
+            }
+        }
+        
+        // Run once on load
+        window.addEventListener('load', () => {
+            createConfetti();
+        });
+    </script>
+
+
+
+</body></html>

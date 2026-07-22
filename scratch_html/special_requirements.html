@@ -1,0 +1,287 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
+<title>Special Requirements | AI Travel Concierge</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        @layer base {
+            body {
+                font-family: 'Inter', sans-serif;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(253, 247, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(203, 196, 210, 0.3);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbc4d2;
+            border-radius: 10px;
+        }
+        .chip-active {
+            background-color: #6750a4;
+            color: #e0d2ff;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#63597c",
+                        "on-surface": "#1d1b20",
+                        "on-secondary-fixed": "#1f1635",
+                        "surface-bright": "#fdf7ff",
+                        "on-tertiary-fixed-variant": "#594400",
+                        "tertiary-container": "#c9a74d",
+                        "primary-fixed-dim": "#cfbcff",
+                        "on-secondary-fixed-variant": "#4b4263",
+                        "on-primary-fixed-variant": "#4f378a",
+                        "outline-variant": "#cbc4d2",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container": "#f2ecf4",
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#f8f2fa",
+                        "on-background": "#1d1b20",
+                        "surface-container-high": "#ece6ee",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "surface-dim": "#ded8e0",
+                        "primary-fixed": "#e9ddff",
+                        "secondary-fixed": "#e9ddff",
+                        "on-tertiary-container": "#503d00",
+                        "on-secondary-container": "#645a7d",
+                        "secondary-container": "#e1d4fd",
+                        "primary-container": "#6750a4",
+                        "surface": "#fdf7ff",
+                        "primary": "#4f378a",
+                        "error": "#ba1a1a",
+                        "inverse-primary": "#cfbcff",
+                        "background": "#fdf7ff",
+                        "surface-variant": "#e6e0e9",
+                        "tertiary-fixed-dim": "#e7c365",
+                        "secondary-fixed-dim": "#cdc0e9",
+                        "inverse-on-surface": "#f5eff7",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#765b00",
+                        "on-primary-fixed": "#22005d",
+                        "surface-tint": "#6750a4",
+                        "surface-container-highest": "#e6e0e9",
+                        "inverse-surface": "#322f35",
+                        "on-primary-container": "#e0d2ff",
+                        "on-surface-variant": "#494551",
+                        "on-tertiary-fixed": "#241a00",
+                        "tertiary-fixed": "#ffdf93",
+                        "outline": "#7a7582",
+                        "on-tertiary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "section-gap": "4rem",
+                        "ai-bubble-padding": "1rem 1.25rem",
+                        "container-margin": "2rem",
+                        "gutter": "1.5rem",
+                        "card-padding": "1.5rem"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Inter"],
+                        "body-md": ["Inter"],
+                        "mono-technical": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "display-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                        "mono-technical": ["13px", {"lineHeight": "1.4", "letterSpacing": "0", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                        "display-lg-mobile": ["36px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col selection:bg-primary-container selection:text-on-primary-container">
+<!-- Top AppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-4 md:px-6 h-16 bg-surface/80 dark:bg-surface-container-highest/80 backdrop-blur-xl border-b border-outline-variant/30 shadow-sm">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary dark:text-primary-fixed-dim hover:bg-primary/5 p-2 rounded-full transition-colors active:scale-95 duration-150 ease-in-out">arrow_back</button>
+<h1 class="font-headline-md text-headline-md-mobile md:text-headline-md text-primary dark:text-primary-fixed-dim">Create New Trip</h1>
+</div>
+<button class="font-label-caps text-label-caps text-on-surface-variant hover:bg-primary/5 px-4 py-2 rounded-full transition-colors active:scale-95 duration-150 ease-in-out">Skip</button>
+</header>
+<!-- Background Decoration -->
+<div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+
+</div>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-24 pb-32 px-4 md:px-8 max-w-4xl mx-auto w-full">
+<!-- Header Section -->
+<div class="mb-10 text-center md:text-left">
+<p class="font-label-caps text-label-caps text-primary mb-2">STEP 9 OF 10</p>
+<h2 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface tracking-tight mb-4">Any special requirements?</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Help your Invisible Concierge tailor every detail to your personal needs and preferences for a seamless journey.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Dietary Section -->
+<section class="md:col-span-12 glass-card p-6 rounded-[32px] shadow-sm">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary bg-primary-container/30 p-2 rounded-xl">restaurant</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Dietary Preferences</h3>
+</div>
+<div class="flex flex-wrap gap-3">
+<!-- Chips are managed by JS for the toggle effect -->
+<button class="group flex items-center gap-2 px-5 py-3 rounded-full border border-outline-variant hover:border-primary transition-all duration-200 active:scale-95" onclick="toggleChip(this)">
+<span class="material-symbols-outlined text-[20px] group-[.chip-active]:text-on-primary-container">eco</span>
+<span class="font-label-caps text-label-caps">Vegetarian</span>
+</button>
+<button class="group flex items-center gap-2 px-5 py-3 rounded-full border border-outline-variant hover:border-primary transition-all duration-200 active:scale-95" onclick="toggleChip(this)">
+<span class="material-symbols-outlined text-[20px] group-[.chip-active]:text-on-primary-container">verified_user</span>
+<span class="font-label-caps text-label-caps">Halal</span>
+</button>
+<button class="group flex items-center gap-2 px-5 py-3 rounded-full border border-outline-variant hover:border-primary transition-all duration-200 active:scale-95" onclick="toggleChip(this)">
+<span class="material-symbols-outlined text-[20px] group-[.chip-active]:text-on-primary-container">psychiatry</span>
+<span class="font-label-caps text-label-caps">Vegan</span>
+</button>
+<button class="group flex items-center gap-2 px-5 py-3 rounded-full border border-outline-variant hover:border-primary transition-all duration-200 active:scale-95" onclick="toggleChip(this)">
+<span class="material-symbols-outlined text-[20px] group-[.chip-active]:text-on-primary-container">flatware</span>
+<span class="font-label-caps text-label-caps">Kosher</span>
+</button>
+<button class="group flex items-center gap-2 px-5 py-3 rounded-full border border-outline-variant hover:border-primary transition-all duration-200 active:scale-95" onclick="toggleChip(this)">
+<span class="material-symbols-outlined text-[20px] group-[.chip-active]:text-on-primary-container">emergency</span>
+<span class="font-label-caps text-label-caps">Gluten-Free</span>
+</button>
+</div>
+</section>
+<!-- Accessibility & Family -->
+<div class="md:col-span-6 glass-card p-6 rounded-[32px] shadow-sm flex flex-col">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary bg-primary-container/30 p-2 rounded-xl">accessible</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Accessibility</h3>
+</div>
+<div class="flex flex-wrap gap-3 flex-grow">
+<button class="group flex items-center gap-2 px-5 py-3 rounded-full border border-outline-variant hover:border-primary transition-all duration-200 active:scale-95" onclick="toggleChip(this)">
+<span class="material-symbols-outlined text-[20px] group-[.chip-active]:text-on-primary-container">accessible_forward</span>
+<span class="font-label-caps text-label-caps">Wheelchair</span>
+</button>
+<button class="group flex items-center gap-2 px-5 py-3 rounded-full border border-outline-variant hover:border-primary transition-all duration-200 active:scale-95" onclick="toggleChip(this)">
+<span class="material-symbols-outlined text-[20px] group-[.chip-active]:text-on-primary-container">visibility_off</span>
+<span class="font-label-caps text-label-caps">Visual Aid</span>
+</button>
+</div>
+</div>
+<div class="md:col-span-6 glass-card p-6 rounded-[32px] shadow-sm flex flex-col">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary bg-primary-container/30 p-2 rounded-xl">family_restroom</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Family</h3>
+</div>
+<div class="flex flex-wrap gap-3 flex-grow">
+<button class="group flex items-center gap-2 px-5 py-3 rounded-full border border-outline-variant hover:border-primary transition-all duration-200 active:scale-95" onclick="toggleChip(this)">
+<span class="material-symbols-outlined text-[20px] group-[.chip-active]:text-on-primary-container">child_care</span>
+<span class="font-label-caps text-label-caps">Kids Friendly</span>
+</button>
+<button class="group flex items-center gap-2 px-5 py-3 rounded-full border border-outline-variant hover:border-primary transition-all duration-200 active:scale-95" onclick="toggleChip(this)">
+<span class="material-symbols-outlined text-[20px] group-[.chip-active]:text-on-primary-container">stroller</span>
+<span class="font-label-caps text-label-caps">Stroller Access</span>
+</button>
+</div>
+</div>
+<!-- Custom Notes -->
+<section class="md:col-span-12 glass-card p-6 rounded-[32px] shadow-sm">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary bg-primary-container/30 p-2 rounded-xl">edit_note</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Custom Notes</h3>
+</div>
+<div class="relative">
+<textarea class="w-full min-h-[160px] p-6 rounded-2xl border border-outline-variant focus:border-primary focus:ring-0 bg-white/50 backdrop-blur-sm transition-all text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant/40 resize-none custom-scrollbar focus:ring-2 focus:ring-primary/20" placeholder="Allergies, specific interests, or any other details you'd like us to know..."></textarea>
+<div class="absolute bottom-4 right-4 pointer-events-none opacity-20">
+<span class="material-symbols-outlined text-4xl">auto_fix_high</span>
+</div>
+</div>
+<p class="mt-4 font-label-caps text-[10px] text-on-surface-variant/60 uppercase tracking-widest text-right">Encrypted &amp; Private</p>
+</section>
+</div>
+<!-- Visual Context Card -->
+<div class="mt-12 relative h-48 rounded-[32px] overflow-hidden group shadow-lg">
+<div class="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700" data-alt="A premium, soft-focus lifestyle photograph of a high-end concierge service at a luxury hotel. Warm ambient lighting glows against minimalist marble surfaces. Subtle textures of fine linen and polished wood evoke a sense of personalized care and attention to detail in a sophisticated travel environment. The aesthetic is clean, calming, and exceptionally refined." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAcDXaddsETByVQVHdqWfGiPCISwVkKgGp47Du0UMxMGg_reYLA_nW38lJ72lZrN9cqMWiLCWi68TiyA8x46HeJ8ah7psWald_W3mVMHWwnCiHAlskJwtD1z9t-Yorg3Rvwbo51OrUhajnQRcWVfN8yxrAN1xVykcZsmJqyzs9-CXC-zIImvpNAz0pS5SkyQuyA8FvCLLw442hjQja7Qsre9h8RipfIpEe9xY-SCiN60ecEux0WLweaCVH9LGbcpbtTCVniSlMGLpXE')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent"></div>
+<div class="absolute bottom-6 left-8 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full border-2 border-white/30 backdrop-blur-md flex items-center justify-center">
+<span class="material-symbols-outlined text-white">verified</span>
+</div>
+<div>
+<p class="text-white font-headline-md text-headline-md">Tailored Just for You</p>
+<p class="text-white/80 font-body-md text-body-md">Your preferences shape every recommendation.</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom NavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-6 py-4 pb-safe bg-surface-container-lowest/80 dark:bg-surface-dim/80 backdrop-blur-lg border-t border-outline-variant/20 shadow-[0_-10px_20px_rgba(37,99,235,0.05)] rounded-t-xl">
+<!-- Progress Tab (Inactive Style as per context) -->
+<div class="flex flex-col items-center justify-center text-on-surface-variant opacity-60 hover:opacity-100 transition-opacity active:translate-y-0.5 duration-200 cursor-pointer">
+<span class="material-symbols-outlined mb-1">hourglass_top</span>
+<span class="font-label-caps text-label-caps uppercase">Progress</span>
+</div>
+<!-- Next Tab (Active State for Flow) -->
+<div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-8 py-2 transition-all active:translate-y-0.5 duration-200 cursor-pointer shadow-md" onclick="window.location.href='{{DATA:SCREEN:SCREEN_5}}'">
+<div class="flex items-center gap-2">
+<span class="font-label-caps text-label-caps uppercase">Next</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</div>
+</div>
+</nav>
+<!-- Interaction Script -->
+<script>
+        function toggleChip(button) {
+            const isActive = button.classList.contains('chip-active');
+            
+            if (isActive) {
+                button.classList.remove('chip-active', 'bg-primary-container', 'text-on-primary-container');
+                button.classList.add('border-outline-variant', 'text-on-surface');
+            } else {
+                button.classList.add('chip-active', 'bg-primary-container', 'text-on-primary-container');
+                button.classList.remove('border-outline-variant', 'text-on-surface');
+                
+                // Micro-interaction: Subtle scale pulse
+                button.animate([
+                    { transform: 'scale(1)' },
+                    { transform: 'scale(1.05)' },
+                    { transform: 'scale(1)' }
+                ], {
+                    duration: 200,
+                    easing: 'ease-in-out'
+                });
+            }
+        }
+    </script>
+
+
+
+</body></html>

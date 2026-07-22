@@ -1,0 +1,295 @@
+<!DOCTYPE html><html lang="en" class="light"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">try{
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary": "#63597c",
+                    "on-surface": "#1d1b20",
+                    "on-secondary-fixed": "#1f1635",
+                    "surface-bright": "#fdf7ff",
+                    "on-tertiary-fixed-variant": "#594400",
+                    "tertiary-container": "#c9a74d",
+                    "primary-fixed-dim": "#cfbcff",
+                    "on-secondary-fixed-variant": "#4b4263",
+                    "on-primary-fixed-variant": "#4f378a",
+                    "outline-variant": "#cbc4d2",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container": "#f2ecf4",
+                    "on-error-container": "#93000a",
+                    "on-primary": "#ffffff",
+                    "surface-container-low": "#f8f2fa",
+                    "on-background": "#1d1b20",
+                    "surface-container-high": "#ece6ee",
+                    "on-secondary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "surface-dim": "#ded8e0",
+                    "primary-fixed": "#e9ddff",
+                    "secondary-fixed": "#e9ddff",
+                    "on-tertiary-container": "#503d00",
+                    "on-secondary-container": "#645a7d",
+                    "secondary-container": "#e1d4fd",
+                    "primary-container": "#6750a4",
+                    "surface": "#fdf7ff",
+                    "primary": "#4f378a",
+                    "error": "#ba1a1a",
+                    "inverse-primary": "#cfbcff",
+                    "background": "#fdf7ff",
+                    "surface-variant": "#e6e0e9",
+                    "tertiary-fixed-dim": "#e7c365",
+                    "secondary-fixed-dim": "#cdc0e9",
+                    "inverse-on-surface": "#f5eff7",
+                    "error-container": "#ffdad6",
+                    "tertiary": "#765b00",
+                    "on-primary-fixed": "#22005d",
+                    "surface-tint": "#6750a4",
+                    "surface-container-highest": "#e6e0e9",
+                    "inverse-surface": "#322f35",
+                    "on-primary-container": "#e0d2ff",
+                    "on-surface-variant": "#494551",
+                    "on-tertiary-fixed": "#241a00",
+                    "tertiary-fixed": "#ffdf93",
+                    "outline": "#7a7582",
+                    "on-tertiary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "section-gap": "4rem",
+                    "ai-bubble-padding": "1rem 1.25rem",
+                    "container-margin": "2rem",
+                    "gutter": "1.5rem",
+                    "card-padding": "1.5rem"
+            },
+            "fontFamily": {
+                    "label-caps": ["Inter"],
+                    "body-md": ["Inter"],
+                    "mono-technical": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "display-lg-mobile": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Inter"]
+            },
+            "fontSize": {
+                    "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                    "mono-technical": ["13px", {"lineHeight": "1.4", "letterSpacing": "0", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                    "display-lg-mobile": ["36px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    }catch(_e){}</script><meta charset="utf-8"></head><body class="bg-surface font-body-md text-on-surface overflow-x-hidden antialiased">
+<!-- TopAppBar from JSON Shell -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-4 md:px-6 h-16 bg-surface/80 dark:bg-surface-container-highest/80 backdrop-blur-xl border-b border-outline-variant/30 shadow-sm">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary p-2 hover:bg-primary/5 transition-colors rounded-full active:scale-95 duration-150 ease-in-out" data-original-icon="arrow_back">
+                arrow_back
+            </button>
+<h1 class="font-headline-md text-headline-md-mobile md:text-headline-md text-on-surface">Create New Trip</h1>
+</div>
+<button class="text-primary font-semibold hover:bg-primary/5 transition-colors px-4 py-2 rounded-lg active:scale-95 duration-150 ease-in-out">
+            Skip
+        </button>
+</header>
+<main class="pt-24 pb-32 px-4 md:px-6 max-w-5xl mx-auto">
+<!-- Duration Info -->
+<div class="mb-10 text-center md:text-left">
+<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary-container/30 border border-primary/10 text-primary mb-4">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+<span class="font-label-caps text-label-caps uppercase tracking-widest">Selected Duration</span>
+</div>
+<h2 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface leading-tight">
+                7 Days in <span class="text-primary">Kyoto</span>
+</h2>
+<p class="text-on-surface-variant text-body-lg mt-2 max-w-xl">
+                The Gion Matsuri festival peaks during your stay. We've optimized your schedule for maximum cultural immersion.
+            </p>
+</div>
+<!-- Premium Calendar View -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Left Side: Month View -->
+<div class="lg:col-span-2 space-y-8">
+<!-- October 2024 -->
+<div class="bg-surface-container-lowest rounded-3xl p-6 shadow-sm border border-outline-variant/20">
+<div class="flex items-center justify-between mb-8 px-2">
+<h3 class="font-headline-md text-on-surface">October 2024</h3>
+<div class="flex gap-2">
+<button class="material-symbols-outlined p-2 hover:bg-surface-container rounded-full text-on-surface-variant">chevron_left</button>
+<button class="material-symbols-outlined p-2 hover:bg-surface-container rounded-full text-on-surface-variant">chevron_right</button>
+</div>
+</div>
+<div class="calendar-grid text-center mb-4">
+<div class="text-on-surface-variant font-label-caps text-label-caps opacity-60">SUN</div>
+<div class="text-on-surface-variant font-label-caps text-label-caps opacity-60">MON</div>
+<div class="text-on-surface-variant font-label-caps text-label-caps opacity-60">TUE</div>
+<div class="text-on-surface-variant font-label-caps text-label-caps opacity-60">WED</div>
+<div class="text-on-surface-variant font-label-caps text-label-caps opacity-60">THU</div>
+<div class="text-on-surface-variant font-label-caps text-label-caps opacity-60">FRI</div>
+<div class="text-on-surface-variant font-label-caps text-label-caps opacity-60">SAT</div>
+</div>
+<div class="calendar-grid gap-y-2">
+<!-- Spacer for start of month -->
+<div class="h-14"></div><div class="h-14"></div>
+<!-- Oct 1 - 13 (Inactive) -->
+<div class="h-14 flex items-center justify-center text-on-surface-variant/40">1</div>
+<div class="h-14 flex items-center justify-center text-on-surface-variant/40">2</div>
+<div class="h-14 flex items-center justify-center text-on-surface-variant/40">3</div>
+<div class="h-14 flex items-center justify-center text-on-surface-variant/40">4</div>
+<div class="h-14 flex items-center justify-center text-on-surface-variant/40">5</div>
+<div class="h-14 flex items-center justify-center text-on-surface-variant/40">6</div>
+<div class="h-14 flex items-center justify-center text-on-surface-variant/40">7</div>
+<div class="h-14 flex items-center justify-center text-on-surface-variant/40">8</div>
+<div class="h-14 flex items-center justify-center text-on-surface-variant/40">9</div>
+<div class="h-14 flex items-center justify-center text-on-surface-variant/40">10</div>
+<div class="h-14 flex items-center justify-center text-on-surface-variant/40">11</div>
+<div class="h-14 flex items-center justify-center text-on-surface-variant/40">12</div>
+<div class="h-14 flex items-center justify-center text-on-surface-variant/40">13</div>
+<!-- Selected Range Starts Oct 14 -->
+<div class="relative h-14 flex items-center justify-center calendar-day-range calendar-day-start">
+<div class="w-10 h-10 date-range-gradient rounded-full flex items-center justify-center text-on-primary font-semibold calendar-day-selected">14</div>
+</div>
+<div class="relative h-14 flex items-center justify-center calendar-day-range calendar-day-mid">
+<div class="text-on-secondary-container font-medium">15</div>
+<span class="absolute top-1 right-2 material-symbols-outlined text-[14px] text-tertiary" title="Festival Alert">celebration</span>
+</div>
+<div class="relative h-14 flex items-center justify-center calendar-day-range calendar-day-mid">
+<div class="text-on-secondary-container font-medium">16</div>
+</div>
+<div class="relative h-14 flex items-center justify-center calendar-day-range calendar-day-mid">
+<div class="text-on-secondary-container font-medium">17</div>
+<span class="absolute top-1 right-2 material-symbols-outlined text-[14px] text-blue-400" title="Expected Rain">rainy</span>
+</div>
+<div class="relative h-14 flex items-center justify-center calendar-day-range calendar-day-mid">
+<div class="text-on-secondary-container font-medium">18</div>
+</div>
+<div class="relative h-14 flex items-center justify-center calendar-day-range calendar-day-mid">
+<div class="text-on-secondary-container font-medium">19</div>
+</div>
+<!-- Range Ends Oct 20 -->
+<div class="relative h-14 flex items-center justify-center calendar-day-range calendar-day-end">
+<div class="w-10 h-10 date-range-gradient rounded-full flex items-center justify-center text-on-primary font-semibold calendar-day-selected">20</div>
+</div>
+<!-- Rest of month -->
+<div class="h-14 flex items-center justify-center hover:bg-surface-container rounded-lg cursor-pointer transition-colors">21</div>
+<div class="h-14 flex items-center justify-center hover:bg-surface-container rounded-lg cursor-pointer transition-colors">22</div>
+<div class="h-14 flex items-center justify-center hover:bg-surface-container rounded-lg cursor-pointer transition-colors">23</div>
+<div class="h-14 flex items-center justify-center hover:bg-surface-container rounded-lg cursor-pointer transition-colors">24</div>
+<div class="h-14 flex items-center justify-center hover:bg-surface-container rounded-lg cursor-pointer transition-colors">25</div>
+<div class="h-14 flex items-center justify-center hover:bg-surface-container rounded-lg cursor-pointer transition-colors">26</div>
+<div class="h-14 flex items-center justify-center hover:bg-surface-container rounded-lg cursor-pointer transition-colors">27</div>
+<div class="h-14 flex items-center justify-center hover:bg-surface-container rounded-lg cursor-pointer transition-colors">28</div>
+<div class="h-14 flex items-center justify-center hover:bg-surface-container rounded-lg cursor-pointer transition-colors">29</div>
+<div class="h-14 flex items-center justify-center hover:bg-surface-container rounded-lg cursor-pointer transition-colors">30</div>
+<div class="h-14 flex items-center justify-center hover:bg-surface-container rounded-lg cursor-pointer transition-colors">31</div>
+</div>
+</div>
+</div>
+<!-- Right Side: Details & Insights -->
+<div class="space-y-6">
+<!-- Weather Insights Card -->
+<div class="bg-surface-container-high/50 backdrop-blur-md rounded-3xl p-6 border border-outline-variant/30">
+<h4 class="font-headline-md text-on-surface mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">wb_sunny</span>
+                        Seasonal Outlook
+                    </h4>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-3 bg-surface-container-lowest rounded-2xl">
+<div>
+<p class="text-on-surface-variant text-sm">Avg. Temperature</p>
+<p class="font-bold text-lg">22°C / 14°C</p>
+</div>
+<span class="material-symbols-outlined text-tertiary text-3xl">thermostat</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-container-lowest rounded-2xl">
+<div>
+<p class="text-on-surface-variant text-sm">Precipitation</p>
+<p class="font-bold text-lg">Low (15%)</p>
+</div>
+<span class="material-symbols-outlined text-blue-400 text-3xl">water_drop</span>
+</div>
+</div>
+</div>
+<!-- Festival Alert Card -->
+<div class="relative overflow-hidden bg-primary p-6 rounded-3xl text-on-primary">
+
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">stars</span>
+<span class="font-label-caps text-label-caps">Kyoto Event Alert</span>
+</div>
+<h4 class="font-headline-md mb-2">Jidai Matsuri</h4>
+<p class="text-on-primary/80 text-sm leading-relaxed">
+                            The Festival of Ages takes place on October 22nd. Expect grand processions and limited access to some palace grounds.
+                        </p>
+<button class="mt-4 w-full py-2 bg-on-primary text-primary font-bold rounded-xl text-sm hover:bg-opacity-90 transition-all active:scale-95">
+                            View Logistics
+                        </button>
+</div>
+</div>
+<!-- Destination Visual-->
+<div class="rounded-3xl h-48 w-full overflow-hidden relative group">
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/60 to-transparent z-10"></div>
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="A cinematic, low-angle shot of a traditional Japanese pagoda at sunset in Kyoto. The sky is a deep indigo and soft magenta. Warm lantern light glows from the wooden structure. The overall aesthetic is peaceful, premium, and deeply atmospheric, capturing the soul of luxury Japanese travel." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBazl_whFTNkbgu9ehjiw9mrw6jPNz2w9UjcgDFMYtGQjXD65C5ZotIjmHiOS1lzUnK_S8R65FVla90uLH_0hhebnvKtLzak4Jla8MC0ZAWEkU0UciWyRla48Tns54dy6DsGdiE8bomOJikn91X5IjIJbF3D3wzOR8Crd9-9A567y7mP_cy7D3-2T8TU8wOYoYEjEKvOos4UIM_YZ_vHVXvik2EV_nSgOZzppIJ2PkxSR4b2kmWUJN3VSIbOHIEyFw36pBmsSMX89ho')"></div>
+<div class="absolute bottom-4 left-4 z-20">
+<p class="text-white font-label-caps text-[10px] uppercase tracking-widest opacity-80">Next Destination</p>
+<p class="text-white font-bold text-xl">Arashiyama District</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom-->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-6 py-4 pb-safe bg-surface-container-lowest/80 dark:bg-surface-dim/80 backdrop-blur-lg border-t border-outline-variant/20 shadow-[0_-10px_20px_rgba(37,99,235,0.05)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant opacity-60 hover:opacity-100 transition-opacity active:translate-y-0.5 duration-200" href="#">
+<span class="material-symbols-outlined mb-1">hourglass_top</span>
+<span class="font-label-caps text-label-caps">Progress</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-8 py-2.5 transition-all active:translate-y-0.5 duration-200" href="{{DATA:SCREEN:SCREEN_12}}">
+<div class="flex items-center gap-2">
+<span class="font-label-caps text-label-caps">Next</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</div>
+</a>
+</nav>
+<!-- Floating AI Assistant Button (Subtle Glassmorphism) -->
+<button class="fixed right-6 bottom-24 z-40 w-14 h-14 rounded-full glass-panel shadow-2xl border border-white/40 flex items-center justify-center text-primary active:scale-90 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</button>
+<script>
+        // Subtle interaction: Highlight calendar days on hover
+        document.querySelectorAll('.calendar-grid div:not(.opacity-60):not(.h-14)').forEach(day => {
+            day.addEventListener('mouseenter', () => {
+                if (!day.classList.contains('calendar-day-selected')) {
+                    day.style.backgroundColor = 'rgba(103, 80, 164, 0.05)';
+                }
+            });
+            day.addEventListener('mouseleave', () => {
+                if (!day.classList.contains('calendar-day-selected')) {
+                    day.style.backgroundColor = 'transparent';
+                }
+            });
+        });
+
+        // Trigger animation entry for main content
+        window.addEventListener('DOMContentLoaded', () => {
+            const main = document.querySelector('main');
+            main.style.opacity = '0';
+            main.style.transform = 'translateY(10px)';
+            main.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            
+            requestAnimationFrame(() => {
+                main.style.opacity = '1';
+                main.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+
+</body></html>

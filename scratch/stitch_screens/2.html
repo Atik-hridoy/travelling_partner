@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nova AI - Destination Detected</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .ai-bubble-glow {
+            box-shadow: 0 0 40px rgba(79, 55, 138, 0.05);
+        }
+        .wave-bar {
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { height: 8px; }
+            50% { height: 24px; }
+        }
+        .bg-japan-overlay {
+            background: linear-gradient(to bottom, rgba(253, 248, 253, 0.8) 0%, rgba(253, 248, 253, 0.95) 100%);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#1e192b",
+                        "secondary-container": "#eaddff",
+                        "surface-container": "#f1ecf2",
+                        "background": "#fdf8fd",
+                        "outline": "#7a7582",
+                        "error-container": "#ffdad6",
+                        "on-background": "#1c1b1f",
+                        "surface-variant": "#e5e1e7",
+                        "error": "#ba1a1a",
+                        "primary-fixed": "#e9ddff",
+                        "primary-fixed-dim": "#cfbcff",
+                        "on-primary-fixed-variant": "#4f378a",
+                        "secondary": "#635a76",
+                        "on-secondary-container": "#69607c",
+                        "on-tertiary-fixed-variant": "#4a4358",
+                        "inverse-on-surface": "#f4eff5",
+                        "surface": "#fdf8fd",
+                        "surface-container-low": "#f7f2f8",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed": "#e8def9",
+                        "primary-container": "#6750a4",
+                        "inverse-surface": "#313034",
+                        "primary": "#4f378a",
+                        "outline-variant": "#cbc4d2",
+                        "on-error-container": "#93000a",
+                        "surface-tint": "#6750a4",
+                        "on-secondary-fixed-variant": "#4b425d",
+                        "on-surface-variant": "#494551",
+                        "surface-container-highest": "#e5e1e7",
+                        "surface-dim": "#ddd9de",
+                        "on-tertiary-container": "#ded4ef",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed": "#22005d",
+                        "tertiary-fixed-dim": "#ccc2dc",
+                        "tertiary": "#4a4459",
+                        "inverse-primary": "#cfbcff",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-high": "#ebe7ec",
+                        "tertiary-container": "#625b71",
+                        "on-primary-container": "#e0d2ff",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#cdc1e2",
+                        "on-secondary-fixed": "#1f1730",
+                        "on-surface": "#1c1b1f",
+                        "secondary-fixed": "#eaddff",
+                        "surface-bright": "#fdf8fd",
+                        "on-primary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "chat-gap": "12px",
+                        "input-padding": "16px 24px",
+                        "gutter": "24px",
+                        "container-max": "1200px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "title-md": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-lg overflow-x-hidden min-h-screen flex flex-col">
+<!-- Background Image Layer -->
+<div class="fixed inset-0 z-0">
+<div class="w-full h-full bg-cover bg-center" data-alt="A breathtaking landscape of a traditional Japanese Kyoto temple during peak autumn. The vibrant red and orange maple leaves frame a tiered wooden pagoda against a clear morning sky. The scene is bathed in soft, ethereal natural light, reflecting the calm and intelligent Nova AI aesthetic. High-quality photographic style with a shallow depth of field and premium minimalism." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDGvB67mZbVMfVovaHvE4yIJoNGuZf77Mea1ji2pSMMMZ6_8A7AtbE0K4WLoJu75tqkj3J-9IQFdUU18AQAJOcp21XF90E3U2lHzUJEMJZhB0SnWMIOsah0K3JCDUnOmAzLxVEdjFVQ9QwKkL4Nuef5BabwYxup_IxtclB-64gDIeJs5De2O36i1ciY5gamOQ0thtfb66vHwY-x7xlQwEGoxY83O1YYdfvCzHjQgwyA1ap5UGChH2z9xSOo0cXe6v_PBns0qj81qv7l')"></div>
+<div class="absolute inset-0 bg-japan-overlay"></div>
+</div>
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/70 backdrop-blur-xl border-b border-outline-variant/10 shadow-sm shadow-primary/5">
+<div class="flex items-center justify-between px-margin-mobile h-16 max-w-container-max mx-auto">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A futuristic and sleek profile avatar for 'Nova', a conversational AI. The image is a stylized, minimalist circular icon using shades of deep purple and bright lavender. It conveys a sense of high-tech intelligence and a friendly, helpful persona, fitting the Apple-inspired design system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPY0pVDyuq5SdjX-FBgkKtBniaYyEy_s34sAobHem7Fhto_Wkmhm7t03W-EfIDthOKTa6pDNEMN1GoPPkzaBPpaZjdzpjZeZocfd-YkpZ5UcGE-A1CTw8PFunVBmAaD-8IDlQQ5rnIV1bSiAodCDcAO72azxKYwAaalGuaXhe-nQKIDa5emKeraq2W_EXOT6VQWEIEDcVwtVXXAnptO4Y0NWLszwQioUU1GtlHp3tHKy91W3KEmKukBXgKA9-ZeTmfVjslVIoRZsx3"/>
+</div>
+<h1 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg font-bold text-primary">Nova</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-primary-container/20 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-primary">more_vert</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="relative z-10 flex-grow pt-24 pb-32 px-margin-mobile flex flex-col items-center">
+<div class="w-full max-w-[720px] space-y-8">
+<!-- Progress Indicator -->
+<div class="flex flex-col items-center gap-2 mb-4">
+<div class="flex items-center gap-2">
+<span class="w-8 h-1 rounded-full bg-primary"></span>
+<span class="w-8 h-1 rounded-full bg-primary"></span>
+<span class="w-8 h-1 rounded-full bg-outline-variant/30"></span>
+<span class="w-8 h-1 rounded-full bg-outline-variant/30"></span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Step 2 of 4 • Journey Setup</span>
+</div>
+<!-- User Message (Context) -->
+<div class="flex justify-end mb-8">
+<div class="bg-primary text-on-primary px-6 py-4 rounded-2xl rounded-tr-none shadow-lg max-w-[85%]">
+<p class="font-body-lg">I want to visit Japan.</p>
+</div>
+</div>
+<!-- Nova Response -->
+<div class="flex flex-col gap-chat-gap items-start mb-8">
+<div class="glass-morphism ai-bubble-glow px-6 py-4 rounded-2xl rounded-tl-none max-w-full">
+<p class="text-on-surface font-body-lg leading-relaxed">
+                        Amazing choice! Japan is beautiful during autumn. Before we continue... Where will you be traveling from?
+                    </p>
+</div>
+<!-- Interaction Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 w-full mt-4">
+<!-- Card 1: GPS -->
+<button class="glass-morphism group flex flex-col items-center justify-center p-6 rounded-xl border border-white/50 hover:border-primary/40 hover:bg-white transition-all duration-300 active:scale-95 text-center">
+<div class="w-12 h-12 bg-primary-fixed rounded-full flex items-center justify-center mb-4 group-hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-on-primary-container">my_location</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface mb-1">Current Location</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Use GPS detection</p>
+</button>
+<!-- Card 2: Home -->
+<button class="glass-morphism group flex flex-col items-center justify-center p-6 rounded-xl border border-white/50 hover:border-primary/40 hover:bg-white transition-all duration-300 active:scale-95 text-center">
+<div class="w-12 h-12 bg-primary-fixed rounded-full flex items-center justify-center mb-4 group-hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-on-primary-container">home</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface mb-1">Choose Home City</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Search manually</p>
+</button>
+<!-- Card 3: Already There -->
+<button class="glass-morphism group flex flex-col items-center justify-center p-6 rounded-xl border border-white/50 hover:border-primary/40 hover:bg-white transition-all duration-300 active:scale-95 text-center">
+<div class="w-12 h-12 bg-primary-fixed rounded-full flex items-center justify-center mb-4 group-hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-on-primary-container">flight_land</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface mb-1">I'm Already There</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Skip travel details</p>
+</button>
+</div>
+<!-- Suggested Chips -->
+<div class="flex flex-wrap gap-2 mt-4">
+<button class="px-4 py-2 rounded-full border border-primary text-primary hover:bg-primary-container/20 transition-colors font-label-sm text-label-sm">
+                        London, UK
+                    </button>
+<button class="px-4 py-2 rounded-full border border-primary text-primary hover:bg-primary-container/20 transition-colors font-label-sm text-label-sm">
+                        New York, USA
+                    </button>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Action Bar / Navigation Shell -->
+<footer class="fixed bottom-0 w-full z-50 bg-surface/70 backdrop-blur-xl border-t border-outline-variant/10 shadow-lg shadow-primary/5 rounded-t-xl">
+<!-- Input Field Container -->
+<div class="max-w-[720px] mx-auto px-4 py-3 flex items-center gap-3">
+<div class="flex-grow relative">
+<input class="w-full h-14 pl-6 pr-14 rounded-full border border-outline-variant/30 bg-surface/50 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-body-md" placeholder="Type or ask about your trip..." type="text"/>
+<button class="absolute right-2 top-2 w-10 h-10 bg-primary text-on-primary rounded-full flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+<!-- Voice Waveform (Active State Placeholder) -->
+<div class="flex items-end gap-[3px] h-10 px-2 cursor-pointer hover:opacity-80">
+<div class="wave-bar w-[3px] bg-primary rounded-full" style="animation-delay: 0.1s"></div>
+<div class="wave-bar w-[3px] bg-primary rounded-full" style="animation-delay: 0.3s"></div>
+<div class="wave-bar w-[3px] bg-primary rounded-full" style="animation-delay: 0.2s"></div>
+<div class="wave-bar w-[3px] bg-primary rounded-full" style="animation-delay: 0.4s"></div>
+<div class="wave-bar w-[3px] bg-primary rounded-full" style="animation-delay: 0.1s"></div>
+</div>
+</div>
+<!-- Navigation Destinations -->
+<nav class="flex justify-around items-center px-4 py-2 h-16 max-w-[720px] mx-auto">
+<a class="flex flex-col items-center justify-center text-on-surface-variant opacity-60 hover:text-primary transition-opacity duration-200" href="#">
+<span class="material-symbols-outlined">arrow_back</span>
+<span class="font-label-sm text-label-sm mt-1">Back</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary font-bold active:opacity-80 transition-opacity duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">horizontal_rule</span>
+<span class="font-label-sm text-label-sm mt-1">Progress</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant opacity-60 hover:text-primary transition-opacity duration-200" href="#">
+<span class="material-symbols-outlined">arrow_forward</span>
+<span class="font-label-sm text-label-sm mt-1">Next</span>
+</a>
+</nav>
+</footer>
+<!-- Micro-interaction Scripts -->
+<script>
+        // Simple click interaction for the cards
+        document.querySelectorAll('.grid button').forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active states
+                document.querySelectorAll('.grid button').forEach(b => {
+                    b.classList.remove('bg-primary-container/20', 'border-primary');
+                    b.classList.add('border-white/50');
+                });
+                // Add active state to clicked
+                this.classList.add('bg-primary-container/20', 'border-primary');
+                this.classList.remove('border-white/50');
+            });
+        });
+    </script>
+</body></html>

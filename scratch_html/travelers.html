@@ -1,0 +1,328 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(203, 196, 210, 0.3);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.05);
+        }
+        .active-glass-card {
+            background: rgba(103, 80, 164, 0.08);
+            border-color: #6750a4;
+            box-shadow: 0 0 0 1px #6750a4;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .spine-axis {
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, #cbc4d2 10%, #cbc4d2 90%, transparent);
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fdf7ff;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#63597c",
+                        "on-surface": "#1d1b20",
+                        "on-secondary-fixed": "#1f1635",
+                        "surface-bright": "#fdf7ff",
+                        "on-tertiary-fixed-variant": "#594400",
+                        "tertiary-container": "#c9a74d",
+                        "primary-fixed-dim": "#cfbcff",
+                        "on-secondary-fixed-variant": "#4b4263",
+                        "on-primary-fixed-variant": "#4f378a",
+                        "outline-variant": "#cbc4d2",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container": "#f2ecf4",
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#f8f2fa",
+                        "on-background": "#1d1b20",
+                        "surface-container-high": "#ece6ee",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "surface-dim": "#ded8e0",
+                        "primary-fixed": "#e9ddff",
+                        "secondary-fixed": "#e9ddff",
+                        "on-tertiary-container": "#503d00",
+                        "on-secondary-container": "#645a7d",
+                        "secondary-container": "#e1d4fd",
+                        "primary-container": "#6750a4",
+                        "surface": "#fdf7ff",
+                        "primary": "#4f378a",
+                        "error": "#ba1a1a",
+                        "inverse-primary": "#cfbcff",
+                        "background": "#fdf7ff",
+                        "surface-variant": "#e6e0e9",
+                        "tertiary-fixed-dim": "#e7c365",
+                        "secondary-fixed-dim": "#cdc0e9",
+                        "inverse-on-surface": "#f5eff7",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#765b00",
+                        "on-primary-fixed": "#22005d",
+                        "surface-tint": "#6750a4",
+                        "surface-container-highest": "#e6e0e9",
+                        "inverse-surface": "#322f35",
+                        "on-primary-container": "#e0d2ff",
+                        "on-surface-variant": "#494551",
+                        "on-tertiary-fixed": "#241a00",
+                        "tertiary-fixed": "#ffdf93",
+                        "outline": "#7a7582",
+                        "on-tertiary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "section-gap": "4rem",
+                        "ai-bubble-padding": "1rem 1.25rem",
+                        "container-margin": "2rem",
+                        "gutter": "1.5rem",
+                        "card-padding": "1.5rem"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Inter"],
+                        "body-md": ["Inter"],
+                        "mono-technical": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "display-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                        "mono-technical": ["13px", {"lineHeight": "1.4", "letterSpacing": "0", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                        "display-lg-mobile": ["36px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background min-h-screen pb-32">
+<!-- Top AppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-4 md:px-6 h-16 bg-surface/80 dark:bg-surface-container-highest/80 backdrop-blur-xl border-b border-outline-variant/30 shadow-sm">
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-primary hover:bg-primary/5 transition-colors active:scale-95 duration-150 ease-in-out">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="font-headline-md text-headline-md-mobile md:text-headline-md text-primary">Create New Trip</h1>
+</div>
+<button class="px-4 py-2 rounded-full text-on-surface-variant font-semibold hover:bg-primary/5 transition-colors active:scale-95 duration-150 ease-in-out">
+            Skip
+        </button>
+</header>
+<main class="pt-24 px-4 max-w-4xl mx-auto">
+<!-- Progress Header -->
+<div class="mb-12">
+<div class="flex items-center justify-between mb-4">
+<span class="font-label-caps text-label-caps text-primary">Step 3 of 5</span>
+<span class="font-label-caps text-label-caps text-outline">Who is coming?</span>
+</div>
+<div class="h-1 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary w-3/5 rounded-full"></div>
+</div>
+</div>
+<section class="space-y-8">
+<header>
+<h2 class="font-display-lg text-display-lg-mobile md:text-display-lg text-on-background tracking-tighter mb-2">Traveler Profile</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl">Tell the Invisible Concierge about your group to tailor activities, accommodations, and pace.</p>
+</header>
+<!-- Group Type Selection -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<!-- Solo Card -->
+<div class="group-card glass-card rounded-xl p-6 flex flex-col items-center justify-center text-center cursor-pointer transition-all hover:border-primary/50" onclick="selectGroup(this)">
+<div class="w-16 h-16 mb-4 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined !text-3xl">person</span>
+</div>
+<span class="font-headline-md text-body-md font-semibold text-on-surface">Solo</span>
+</div>
+<!-- Couple Card -->
+<div class="group-card glass-card rounded-xl p-6 flex flex-col items-center justify-center text-center cursor-pointer transition-all hover:border-primary/50 active-glass-card" onclick="selectGroup(this)">
+<div class="w-16 h-16 mb-4 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined !text-3xl">favorite</span>
+</div>
+<span class="font-headline-md text-body-md font-semibold text-on-surface">Couple</span>
+</div>
+<!-- Family Card -->
+<div class="group-card glass-card rounded-xl p-6 flex flex-col items-center justify-center text-center cursor-pointer transition-all hover:border-primary/50" onclick="selectGroup(this)">
+<div class="w-16 h-16 mb-4 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined !text-3xl">family_restroom</span>
+</div>
+<span class="font-headline-md text-body-md font-semibold text-on-surface">Family</span>
+</div>
+<!-- Friends Card -->
+<div class="group-card glass-card rounded-xl p-6 flex flex-col items-center justify-center text-center cursor-pointer transition-all hover:border-primary/50" onclick="selectGroup(this)">
+<div class="w-16 h-16 mb-4 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined !text-3xl">group</span>
+</div>
+<span class="font-headline-md text-body-md font-semibold text-on-surface">Friends</span>
+</div>
+</div>
+<!-- Detailed Selectors -->
+<div class="glass-card rounded-2xl p-8 space-y-12">
+<!-- Adults -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">person</span>
+</div>
+<div>
+<h3 class="font-headline-md text-body-lg font-semibold text-on-surface">Adults</h3>
+<p class="font-body-md text-sm text-outline">Ages 13 and above</p>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors active:scale-95" onclick="decrement('adults')">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<span class="font-headline-md text-2xl min-w-[24px] text-center" id="count-adults">2</span>
+<button class="w-10 h-10 rounded-full border border-primary text-primary flex items-center justify-center hover:bg-primary/5 transition-colors active:scale-95" onclick="increment('adults')">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+<!-- Children -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">child_care</span>
+</div>
+<div>
+<h3 class="font-headline-md text-body-lg font-semibold text-on-surface">Children</h3>
+<p class="font-body-md text-sm text-outline">Ages 2 to 12</p>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors active:scale-95" onclick="decrement('children')">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<span class="font-headline-md text-2xl min-w-[24px] text-center" id="count-children">0</span>
+<button class="w-10 h-10 rounded-full border border-primary text-primary flex items-center justify-center hover:bg-primary/5 transition-colors active:scale-95" onclick="increment('children')">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+<!-- Pets -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">pets</span>
+</div>
+<div>
+<h3 class="font-headline-md text-body-lg font-semibold text-on-surface">Pets</h3>
+<p class="font-body-md text-sm text-outline">Dog, Cat, or service animals</p>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors active:scale-95" onclick="decrement('pets')">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<span class="font-headline-md text-2xl min-w-[24px] text-center" id="count-pets">0</span>
+<button class="w-10 h-10 rounded-full border border-primary text-primary flex items-center justify-center hover:bg-primary/5 transition-colors active:scale-95" onclick="increment('pets')">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Illustration Area -->
+<div class="relative w-full h-48 rounded-2xl overflow-hidden mt-12 bg-surface-container-low">
+<div class="absolute inset-0 opacity-40 mix-blend-overlay pointer-events-none">
+
+</div>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="text-center">
+<span class="material-symbols-outlined !text-6xl text-primary/30 mb-2">auto_awesome</span>
+<p class="font-label-caps text-label-caps text-on-surface-variant/60">Optimizing for your group dynamics</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Shell -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-6 py-4 pb-safe bg-surface-container-lowest/80 dark:bg-surface-dim/80 backdrop-blur-lg border-t border-outline-variant/20 shadow-[0_-10px_20px_rgba(37,99,235,0.05)] rounded-t-xl">
+<div class="flex flex-col items-center justify-center text-on-surface-variant opacity-60 hover:opacity-100 transition-opacity transition-all active:translate-y-0.5 duration-200">
+<span class="material-symbols-outlined">hourglass_top</span>
+<span class="font-label-caps text-label-caps mt-1">Progress</span>
+</div>
+<!-- Action Button (FAB Style) -->
+<button class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-12 py-3 transition-all hover:scale-105 active:scale-95 shadow-lg" onclick="window.location.href='{{DATA:SCREEN:SCREEN_13}}'">
+<div class="flex items-center gap-2">
+<span class="font-label-caps text-label-caps font-bold">Next</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</div>
+</button>
+</nav>
+<script>
+        function increment(id) {
+            const el = document.getElementById('count-' + id);
+            let val = parseInt(el.innerText);
+            el.innerText = val + 1;
+        }
+
+        function decrement(id) {
+            const el = document.getElementById('count-' + id);
+            let val = parseInt(el.innerText);
+            if (val > 0) {
+                el.innerText = val - 1;
+            }
+        }
+
+        function selectGroup(element) {
+            const cards = document.querySelectorAll('.group-card');
+            cards.forEach(card => card.classList.remove('active-glass-card'));
+            element.classList.add('active-glass-card');
+
+            // Auto-update adult counters based on selection for realism
+            const label = element.querySelector('span:last-child').innerText;
+            const adultEl = document.getElementById('count-adults');
+            const childEl = document.getElementById('count-children');
+            
+            if (label === 'Solo') {
+                adultEl.innerText = '1';
+                childEl.innerText = '0';
+            } else if (label === 'Couple') {
+                adultEl.innerText = '2';
+                childEl.innerText = '0';
+            } else if (label === 'Family') {
+                adultEl.innerText = '2';
+                childEl.innerText = '2';
+            } else if (label === 'Friends') {
+                adultEl.innerText = '4';
+                childEl.innerText = '0';
+            }
+        }
+    </script>
+
+
+</body></html>

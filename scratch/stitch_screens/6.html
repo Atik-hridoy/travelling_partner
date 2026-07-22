@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nova AI - Travel Style &amp; Interests</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 40px 40px -40px rgba(79, 55, 138, 0.05);
+        }
+        
+        .user-bubble {
+            box-shadow: 0 10px 15px -3px rgba(79, 55, 138, 0.1);
+        }
+
+        .waveform-bar {
+            animation: pulse 1.2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { height: 4px; }
+            50% { height: 16px; }
+        }
+
+        .waveform-bar:nth-child(2) { animation-delay: 0.1s; }
+        .waveform-bar:nth-child(3) { animation-delay: 0.2s; }
+        .waveform-bar:nth-child(4) { animation-delay: 0.3s; }
+        .waveform-bar:nth-child(5) { animation-delay: 0.4s; }
+
+        .chip-active {
+            background-color: #6750a4;
+            color: #ffffff;
+            border-color: #6750a4;
+        }
+
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary-fixed": "#1e192b",
+                      "secondary-container": "#eaddff",
+                      "surface-container": "#f1ecf2",
+                      "background": "#fdf8fd",
+                      "outline": "#7a7582",
+                      "error-container": "#ffdad6",
+                      "on-background": "#1c1b1f",
+                      "surface-variant": "#e5e1e7",
+                      "error": "#ba1a1a",
+                      "primary-fixed": "#e9ddff",
+                      "primary-fixed-dim": "#cfbcff",
+                      "on-primary-fixed-variant": "#4f378a",
+                      "secondary": "#635a76",
+                      "on-secondary-container": "#69607c",
+                      "on-tertiary-fixed-variant": "#4a4358",
+                      "inverse-on-surface": "#f4eff5",
+                      "surface": "#fdf8fd",
+                      "surface-container-low": "#f7f2f8",
+                      "on-secondary": "#ffffff",
+                      "tertiary-fixed": "#e8def9",
+                      "primary-container": "#6750a4",
+                      "inverse-surface": "#313034",
+                      "primary": "#4f378a",
+                      "outline-variant": "#cbc4d2",
+                      "on-error-container": "#93000a",
+                      "surface-tint": "#6750a4",
+                      "on-secondary-fixed-variant": "#4b425d",
+                      "on-surface-variant": "#494551",
+                      "surface-container-highest": "#e5e1e7",
+                      "surface-dim": "#ddd9de",
+                      "on-tertiary-container": "#ded4ef",
+                      "on-error": "#ffffff",
+                      "on-primary-fixed": "#22005d",
+                      "tertiary-fixed-dim": "#ccc2dc",
+                      "tertiary": "#4a4459",
+                      "inverse-primary": "#cfbcff",
+                      "on-tertiary": "#ffffff",
+                      "surface-container-high": "#ebe7ec",
+                      "tertiary-container": "#625b71",
+                      "on-primary-container": "#e0d2ff",
+                      "surface-container-lowest": "#ffffff",
+                      "secondary-fixed-dim": "#cdc1e2",
+                      "on-secondary-fixed": "#1f1730",
+                      "on-surface": "#1c1b1f",
+                      "secondary-fixed": "#eaddff",
+                      "surface-bright": "#fdf8fd",
+                      "on-primary": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "chat-gap": "12px",
+                      "input-padding": "16px 24px",
+                      "gutter": "24px",
+                      "container-max": "1200px",
+                      "margin-mobile": "16px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "headline-lg-mobile": ["Inter"],
+                      "body-md": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "title-md": ["Inter"],
+                      "body-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md min-h-screen flex flex-col">
+<!-- Top AppBar - Derived from Shared Components JSON -->
+<header class="fixed top-0 w-full z-50 bg-surface/70 dark:bg-surface-container/70 backdrop-blur-xl border-b border-outline-variant/10 shadow-sm shadow-primary/5 h-16">
+<div class="flex items-center justify-between px-margin-mobile h-full max-w-container-max mx-auto">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A high-quality 3D rendered avatar of a friendly AI assistant with soft purple lighting and a sleek, translucent glass visor. The avatar's expression is calm and intelligent, set against a minimalist white gallery background. The style is premium Apple-inspired, using soft gradients and clean lines." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAD-MnupcQGPxjouYmkInJ4vTKo0Lpbe7pbdZ3Qfy3IE2CjXXjtbfS1K7875fPuxdx3jrg0xm62S8uLry2vwhGcEDAp-VJ4G2p0R3ChkV_XxU5w8_6kRe_Cf05vCadacvVkkHQZOWb1crKwBitGveHQ2Tnqf0eXXRZHReUwSvDWXMLRLKkpdfNCO0it8uDgjY5rIbWrsRErNPCyMJ1s-164EG9quEws1DnNDCsPbg_IPoNF0uVCwpK3NHe0WDpavSONt77q6avZ8FS4"/>
+</div>
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary dark:text-primary-fixed">Nova</h1>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-primary-container/20 transition-colors p-2 rounded-full active:scale-95 transition-transform duration-200">
+                more_vert
+            </button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-24 pb-40 px-margin-mobile">
+<div class="max-w-[720px] mx-auto space-y-8">
+<!-- AI Turn 1 -->
+<div class="flex flex-col gap-3">
+<div class="flex items-end gap-2">
+<div class="glass-effect rounded-2xl rounded-bl-none p-4 max-w-[85%]">
+<p class="font-body-lg text-on-surface">What kind of trip are you looking for? Pick the vibes that resonate.</p>
+</div>
+</div>
+</div>
+<!-- Bento Selection Grid (Visual Interest) -->
+<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+<div class="col-span-2 relative group cursor-pointer overflow-hidden rounded-xl h-48 border-2 border-transparent hover:border-primary transition-all duration-300" onclick="this.classList.toggle('ring-4'); this.classList.toggle('ring-primary/20')">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="A breathtaking cinematic shot of a traveler standing on a rugged cliff edge overlooking a vast, misty mountain range during sunrise. The lighting is ethereal and golden, emphasizing a sense of epic adventure and freedom. The composition is clean and modern, fitting a high-end travel application aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBCH2M287Za3t_Wh5RzCw1i9PK7zWuVnt0euWhQd_YnOMkSssI75Co05Vly30tsObqpJ8qxW4ky827bG_dOVA5AR9RWJ6srHXWaq5NlBpi29gzneuGjG-RbhDwadXPmeftYQ7xeSwvzNzlaBDmCPVgSn4R5mw10XqqFj4fMto8tfUnekAybMHie_N-nYqebAmiENNimmzL-IFUqIaQuJAXUcFDNnoQNq--E6bqfIj_jR79ZhIgfjI44wStDr7viZjsF1JtnVRz7BIIv')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-4 left-4 text-white">
+<span class="font-title-md text-title-md">Adventure</span>
+</div>
+<div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+<div class="relative group cursor-pointer overflow-hidden rounded-xl h-48 border-2 border-transparent hover:border-primary transition-all duration-300" onclick="this.classList.toggle('ring-4'); this.classList.toggle('ring-primary/20')">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="A luxurious infinity pool overlooking a tropical beach at sunset. The water is crystalline, reflecting the vibrant pink and orange sky. Elegant white loungers and minimalist architecture suggest a premium, serene luxury travel experience. High-end lighting and sophisticated mood." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDEQSTR_ZT8zdFKYJ3HXGzc7LjcNGX5r6ysQpP4r-mtN-701ThuqvjKhiyg2ZQt2n8HI_JW4af5zaE5I6V_cfeJM5CK1YHc9a7OK4I3pn0RZnI1oPybeC_CZIOKck8IVQiQn6NlG9q4Ij-LMwe8he8T5uVrhdXBkCiRUY4-Atq73o_AK62AMVas6q7VB4isUfJovq-_f_xClO0dUgEkCAew_KUs_jLL-E8kuB4j-ex4qK2yj9mGZfwDxStCzuZFrEr-Z4JcAEtd6bfb')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-4 left-4 text-white">
+<span class="font-title-md text-title-md">Luxury</span>
+</div>
+</div>
+<div class="relative group cursor-pointer overflow-hidden rounded-xl h-40 border-2 border-transparent hover:border-primary transition-all duration-300" onclick="this.classList.toggle('ring-4'); this.classList.toggle('ring-primary/20')">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="A macro shot of vibrant, fresh street food in a bustling Asian night market. Steam rises from a bowl of noodles, with colorful vegetables and bright neon lights blurred in the background. The mood is energetic and delicious, focusing on the sensory experience of culture and food." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAiM85dN0jbcCpSPy8ToHfh0m79B9j-4JECU07kEkZLyp5dHcx8fMpae7l8U_stTMeaG2y0A3B4OGQBpTXF1XAowNvq1A83tl-4-kFI_aHlZ9deHYy6MtlhPg-CXCivguYREZxIu3NJMoBtwXl4f2jLoOdFdZ04O1HqviaO4KwPipOIWKk_BYvaCNEcuBkoXNxWRBpAIBknirqeSCyxsbg7IP9BoSXopbqnvq2ihObIZLclRIvDiZMDTyoAHpgTAY82MsNETJzvLEbX')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-4 left-4 text-white">
+<span class="font-title-md text-title-md">Food</span>
+</div>
+</div>
+<div class="relative group cursor-pointer overflow-hidden rounded-xl h-40 border-2 border-transparent hover:border-primary transition-all duration-300" onclick="this.classList.toggle('ring-4'); this.classList.toggle('ring-primary/20')">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="A lush, sun-dappled forest path with ancient trees and soft green moss. Rays of light filter through the canopy, creating a peaceful and rejuvenating nature atmosphere. The visual style is crisp and clear, emphasizing the tranquility of the natural world." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDVWTPn4MHHwwTj9MhCywzZ1Nhq_ezDTs6zS6-SuosY72oGlNCWOb6eHLoptFkfxVxRwuKHpehrnPvXt-G6MZOQsCpIeFNlD7MzqmRWwfXJslbBFq9SiRmCSuKjfGYhMzRH_HY2JdsKlY0KsqOdEUC903BP7oIgD_hqUXtaCimt8DiXKS_lw2GOCOL_dzKXKg-UUp2OTrkAEUel9NDfPS6DLEwIPiz7OWJ_2BDkL26xKfEg5cIbGogPt-LmGbroT3OAsh3RK3gDDe8h')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-4 left-4 text-white">
+<span class="font-title-md text-title-md">Nature</span>
+</div>
+</div>
+<div class="relative group cursor-pointer overflow-hidden rounded-xl h-40 border-2 border-transparent hover:border-primary transition-all duration-300" onclick="this.classList.toggle('ring-4'); this.classList.toggle('ring-primary/20')">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="An ornate, historic temple courtyard with intricate carvings and traditional architecture. The lighting is warm and golden, highlighting the deep cultural heritage and spiritual significance of the site. A clean, high-contrast photograph that captures the essence of global culture." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBLjBBAClqlhY6n0ZxNITZl916eC7ShM5mm2Pnxw5DDLyT13wZhoKjUtLfpj6ygUtWMD0d-3sUZoTBuLHpJEAgEh-4IElmWJUUVWwxdhs7LuLcvPgXduYCv383ZF763T5KUFLisTffrBwmzV6KYwWiTZwBcQLjkUipF-DRRhVRzNxdIELmgGeUFSqk3ZhJxCKLY3Ucn29iPdPXlZ4X8m40Bfq1846HGzDoJxV4r9u_40T55nGKgCzyYmUDNgkMrJQHmRtrIqygm6pEX')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-4 left-4 text-white">
+<span class="font-title-md text-title-md">Culture</span>
+</div>
+</div>
+</div>
+<!-- Smart Interests Section -->
+<div class="space-y-4 pt-4">
+<h3 class="font-title-md text-title-md text-primary">Smart Interests</h3>
+<div class="flex flex-wrap gap-3">
+<button class="flex items-center gap-2 px-4 py-2 rounded-full border border-outline-variant hover:bg-primary-container/20 transition-all group" onclick="this.classList.toggle('bg-primary'); this.classList.toggle('text-white')">
+<span class="material-symbols-outlined text-sm">museum</span>
+<span class="font-label-sm text-label-sm">Museums</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-full border border-outline-variant hover:bg-primary-container/20 transition-all" onclick="this.classList.toggle('bg-primary'); this.classList.toggle('text-white')">
+<span class="material-symbols-outlined text-sm">temple_buddhist</span>
+<span class="font-label-sm text-label-sm">Temples</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-full border border-outline-variant hover:bg-primary-container/20 transition-all" onclick="this.classList.toggle('bg-primary'); this.classList.toggle('text-white')">
+<span class="material-symbols-outlined text-sm">search_spark</span>
+<span class="font-label-sm text-label-sm">Hidden Gems</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-full border border-outline-variant hover:bg-primary-container/20 transition-all" onclick="this.classList.toggle('bg-primary'); this.classList.toggle('text-white')">
+<span class="material-symbols-outlined text-sm">photo_camera</span>
+<span class="font-label-sm text-label-sm">Photography</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-full border border-outline-variant hover:bg-primary-container/20 transition-all" onclick="this.classList.toggle('bg-primary'); this.classList.toggle('text-white')">
+<span class="material-symbols-outlined text-sm">hiking</span>
+<span class="font-label-sm text-label-sm">Hiking</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-full border border-outline-variant hover:bg-primary-container/20 transition-all" onclick="this.classList.toggle('bg-primary'); this.classList.toggle('text-white')">
+<span class="material-symbols-outlined text-sm">shopping_bag</span>
+<span class="font-label-sm text-label-sm">Local Markets</span>
+</button>
+</div>
+</div>
+<!-- AI Turn 2 -->
+<div class="flex flex-col gap-3 pt-4">
+<div class="flex items-end gap-2">
+<div class="glass-effect rounded-2xl rounded-bl-none p-4 max-w-[85%]">
+<p class="font-body-lg text-on-surface">Great choices. I'll prioritize these when crafting your itinerary. Is there anything else I should know, like dietary needs or mobility preferences?</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Interface Area -->
+<div class="fixed bottom-0 w-full z-50 bg-surface/70 backdrop-blur-xl border-t border-outline-variant/10">
+<div class="max-w-[720px] mx-auto p-4 space-y-4">
+<!-- Chat Input Area -->
+<div class="relative flex items-center gap-3 glass-effect rounded-full px-4 py-2 border border-outline-variant/30">
+<button class="p-2 text-primary hover:bg-primary/10 rounded-full transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined">mic</span>
+<div class="hidden ml-2 flex items-center gap-1 h-4">
+<div class="waveform-bar w-1 bg-primary rounded-full"></div>
+<div class="waveform-bar w-1 bg-primary rounded-full"></div>
+<div class="waveform-bar w-1 bg-primary rounded-full"></div>
+<div class="waveform-bar w-1 bg-primary rounded-full"></div>
+<div class="waveform-bar w-1 bg-primary rounded-full"></div>
+</div>
+</button>
+<input class="flex-grow bg-transparent border-none focus:ring-0 text-on-surface placeholder-on-surface-variant/50 font-body-md py-2" placeholder="Anything else Nova should know? (e.g. Dietary needs)" type="text"/>
+<button class="bg-primary text-white w-10 h-10 rounded-full flex items-center justify-center active:scale-90 transition-transform shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+<!-- Build My Trip Button -->
+<div class="flex justify-center pb-2">
+<button class="w-full bg-primary text-white font-title-md text-title-md py-4 rounded-xl shadow-xl shadow-primary/25 hover:bg-primary/90 transition-all flex items-center justify-center gap-2 group">
+                    Build My Trip
+                    <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">auto_awesome</span>
+</button>
+</div>
+</div>
+<!-- Navigation Placeholder from JSON -->
+<nav class="hidden md:flex justify-around items-center px-4 py-3 h-20 bg-surface/70 backdrop-blur-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant opacity-60" href="#">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+<span class="font-label-sm text-label-sm">Back</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed font-bold" href="#">
+<span class="material-symbols-outlined" data-icon="horizontal_rule">horizontal_rule</span>
+<span class="font-label-sm text-label-sm">Progress</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant opacity-60" href="#">
+<span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+<span class="font-label-sm text-label-sm">Next</span>
+</a>
+</nav>
+</div>
+<!-- Script for micro-interactions -->
+<script>
+        // Simple toggle for the voice animation when mic is clicked
+        const micBtn = document.querySelector('button .material-symbols-outlined:contains("mic")')?.parentElement;
+        if(micBtn) {
+            micBtn.addEventListener('click', () => {
+                const waveform = micBtn.querySelector('div');
+                waveform.classList.toggle('hidden');
+                waveform.classList.toggle('flex');
+            });
+        }
+
+        // Logic for multi-select chips styling
+        document.querySelectorAll('button[onclick]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // The toggle is handled inline but we can add secondary effects here
+            });
+        });
+    </script>
+</body></html>

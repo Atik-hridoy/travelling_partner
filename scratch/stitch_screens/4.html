@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nova AI - Travel Dates Selection</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed": "#1e192b",
+                    "secondary-container": "#eaddff",
+                    "surface-container": "#f1ecf2",
+                    "background": "#fdf8fd",
+                    "outline": "#7a7582",
+                    "error-container": "#ffdad6",
+                    "on-background": "#1c1b1f",
+                    "surface-variant": "#e5e1e7",
+                    "error": "#ba1a1a",
+                    "primary-fixed": "#e9ddff",
+                    "primary-fixed-dim": "#cfbcff",
+                    "on-primary-fixed-variant": "#4f378a",
+                    "secondary": "#635a76",
+                    "on-secondary-container": "#69607c",
+                    "on-tertiary-fixed-variant": "#4a4358",
+                    "inverse-on-surface": "#f4eff5",
+                    "surface": "#fdf8fd",
+                    "surface-container-low": "#f7f2f8",
+                    "on-secondary": "#ffffff",
+                    "tertiary-fixed": "#e8def9",
+                    "primary-container": "#6750a4",
+                    "inverse-surface": "#313034",
+                    "primary": "#4f378a",
+                    "outline-variant": "#cbc4d2",
+                    "on-error-container": "#93000a",
+                    "surface-tint": "#6750a4",
+                    "on-secondary-fixed-variant": "#4b425d",
+                    "on-surface-variant": "#494551",
+                    "surface-container-highest": "#e5e1e7",
+                    "surface-dim": "#ddd9de",
+                    "on-tertiary-container": "#ded4ef",
+                    "on-error": "#ffffff",
+                    "on-primary-fixed": "#22005d",
+                    "tertiary-fixed-dim": "#ccc2dc",
+                    "tertiary": "#4a4459",
+                    "inverse-primary": "#cfbcff",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-high": "#ebe7ec",
+                    "tertiary-container": "#625b71",
+                    "on-primary-container": "#e0d2ff",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-fixed-dim": "#cdc1e2",
+                    "on-secondary-fixed": "#1f1730",
+                    "on-surface": "#1c1b1f",
+                    "secondary-fixed": "#eaddff",
+                    "surface-bright": "#fdf8fd",
+                    "on-primary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "chat-gap": "12px",
+                    "input-padding": "16px 24px",
+                    "gutter": "24px",
+                    "container-max": "1200px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "title-md": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        .inner-glow {
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+        }
+        .ambient-shadow {
+            box-shadow: 0 20px 40px -10px rgba(79, 55, 138, 0.05);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body-lg overflow-x-hidden">
+<!-- Top Navigation Shell -->
+<nav class="fixed top-0 w-full z-50 bg-surface/70 dark:bg-surface-container/70 backdrop-blur-xl border-b border-outline-variant/10 shadow-sm shadow-primary/5">
+<div class="flex items-center justify-between px-margin-mobile h-16 max-w-container-max mx-auto">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A portrait of Nova AI, a calm and intelligent assistant persona. She has a minimalist, clean aesthetic with soft violet highlights in her hair, looking directly at the camera with a gentle, helpful expression. The background is a soft-focus studio setting with cool, ambient lighting, reflecting a premium glassmorphic style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAYnKrrmMmi7jOtJKPLhL4cKbqulM4t8paIdIi_xp3hkwJ1NQ55qq7kMVOjDOUmkTazkZadDJB--tkkVlgNiJmFeujpTlZscZqnjytmEQXu9VnzY5AZtR4L-1LLDcTKUh_HpyGEq6xdJuTiyF9D7CJyO5uN6hcQJQpF82uUaYMV5buR8kXBzYcQhTY5-oivryOUuNCtnXLt4NP-0rjxFA-z166VywV4pLvS4yXyvQFu5Mo48cznYv6oiBDT0QEFooqtOwmjzcuMkOn"/>
+</div>
+<span class="font-headline-lg text-headline-lg font-bold text-primary">Nova</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-full hover:bg-primary-container/20 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="pt-20 pb-32 px-margin-mobile max-w-[720px] mx-auto min-h-screen">
+<!-- Chat Interaction History -->
+<div class="flex flex-col gap-8">
+<!-- Turn: Nova Intro (Previous context) -->
+<div class="flex flex-col gap-3">
+<div class="flex items-end gap-2">
+<div class="glass p-4 rounded-2xl rounded-bl-none max-w-[85%] ambient-shadow inner-glow">
+<p class="text-on-surface">Great! Kyoto in October is absolutely stunning. The autumn leaves are just beginning to change.</p>
+</div>
+</div>
+</div>
+<!-- Turn: Nova Date Request (Current Focus) -->
+<div class="flex flex-col gap-4">
+<div class="flex items-end gap-2">
+<div class="glass p-4 rounded-2xl rounded-bl-none max-w-[85%] ambient-shadow inner-glow">
+<p class="text-on-surface font-medium">When are you planning to travel?</p>
+</div>
+</div>
+<!-- Integrated Large Calendar Component -->
+<div class="glass rounded-3xl overflow-hidden ambient-shadow inner-glow mt-2 border border-primary/10">
+<div class="p-6">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-title-md text-title-md font-semibold text-primary">October 2024</h3>
+<div class="flex gap-2">
+<button class="p-2 rounded-xl hover:bg-surface-container transition-colors"><span class="material-symbols-outlined">chevron_left</span></button>
+<button class="p-2 rounded-xl hover:bg-surface-container transition-colors"><span class="material-symbols-outlined">chevron_right</span></button>
+</div>
+</div>
+<div class="calendar-grid text-center text-on-surface-variant text-label-sm mb-4">
+<div>MO</div><div>TU</div><div>WE</div><div>TH</div><div>FR</div><div>SA</div><div>SU</div>
+</div>
+<div class="calendar-grid gap-y-2">
+<!-- Empty cells for start of month -->
+<div class="h-10"></div>
+<div class="h-10 flex items-center justify-center text-on-surface/40">1</div>
+<div class="h-10 flex items-center justify-center text-on-surface/40">2</div>
+<div class="h-10 flex items-center justify-center text-on-surface/40">3</div>
+<div class="h-10 flex items-center justify-center text-on-surface/40">4</div>
+<div class="h-10 flex items-center justify-center text-on-surface/40">5</div>
+<div class="h-10 flex items-center justify-center text-on-surface/40">6</div>
+<!-- Selected Range Start -->
+<div class="h-10 flex items-center justify-center hover:bg-primary/5 rounded-lg cursor-pointer">7</div>
+<div class="h-10 flex items-center justify-center hover:bg-primary/5 rounded-lg cursor-pointer">8</div>
+<div class="h-10 flex items-center justify-center hover:bg-primary/5 rounded-lg cursor-pointer">9</div>
+<div class="h-10 flex items-center justify-center hover:bg-primary/5 rounded-lg cursor-pointer">10</div>
+<div class="h-10 flex items-center justify-center hover:bg-primary/5 rounded-lg cursor-pointer">11</div>
+<div class="h-10 flex items-center justify-center hover:bg-primary/5 rounded-lg cursor-pointer">12</div>
+<div class="h-10 flex items-center justify-center hover:bg-primary/5 rounded-lg cursor-pointer">13</div>
+<!-- Selection Logic Visualization -->
+<div class="h-10 bg-primary/10 flex items-center justify-center rounded-l-full text-primary font-bold cursor-pointer relative overflow-hidden">
+                                14
+                                <div class="absolute bottom-1 w-1 h-1 bg-primary rounded-full"></div>
+</div>
+<div class="h-10 bg-primary/10 flex items-center justify-center text-primary font-bold cursor-pointer">15</div>
+<div class="h-10 bg-primary/10 flex items-center justify-center text-primary font-bold cursor-pointer">16</div>
+<div class="h-10 bg-primary/10 flex items-center justify-center text-primary font-bold cursor-pointer">17</div>
+<div class="h-10 bg-primary/10 flex items-center justify-center text-primary font-bold cursor-pointer">18</div>
+<div class="h-10 bg-primary/10 flex items-center justify-center text-primary font-bold cursor-pointer">19</div>
+<div class="h-10 bg-primary/10 flex items-center justify-center rounded-r-full text-primary font-bold cursor-pointer">20</div>
+<!-- Event Highlight -->
+<div class="h-10 flex items-center justify-center hover:bg-primary/5 rounded-lg cursor-pointer">21</div>
+<div class="h-10 flex items-center justify-center bg-tertiary-fixed text-on-tertiary-fixed rounded-full font-bold cursor-pointer relative" title="Jidai Matsuri">
+                                22
+                                <div class="absolute -top-1 -right-1 w-2 h-2 bg-error rounded-full animate-pulse border-2 border-white"></div>
+</div>
+<div class="h-10 flex items-center justify-center hover:bg-primary/5 rounded-lg cursor-pointer">23</div>
+<div class="h-10 flex items-center justify-center hover:bg-primary/5 rounded-lg cursor-pointer">24</div>
+<div class="h-10 flex items-center justify-center hover:bg-primary/5 rounded-lg cursor-pointer">25</div>
+<div class="h-10 flex items-center justify-center hover:bg-primary/5 rounded-lg cursor-pointer">26</div>
+<div class="h-10 flex items-center justify-center hover:bg-primary/5 rounded-lg cursor-pointer">27</div>
+<div class="h-10 flex items-center justify-center hover:bg-primary/5 rounded-lg cursor-pointer">28</div>
+<div class="h-10 flex items-center justify-center hover:bg-primary/5 rounded-lg cursor-pointer">29</div>
+<div class="h-10 flex items-center justify-center hover:bg-primary/5 rounded-lg cursor-pointer">30</div>
+<div class="h-10 flex items-center justify-center hover:bg-primary/5 rounded-lg cursor-pointer">31</div>
+</div>
+</div>
+<!-- Dynamic Info Pane (Apple-inspired bottom sheet style within card) -->
+<div class="bg-surface-container-high/50 p-6 flex flex-col gap-4 border-t border-outline-variant/20">
+<div class="flex items-center gap-4">
+<div class="flex-1 bg-surface-container-lowest/80 p-3 rounded-2xl border border-outline-variant/10">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-primary text-[18px]">forest</span>
+<span class="text-label-sm font-bold uppercase text-primary">Season</span>
+</div>
+<p class="text-body-md font-medium">Autumn (Best Time)</p>
+</div>
+<div class="flex-1 bg-surface-container-lowest/80 p-3 rounded-2xl border border-outline-variant/10">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-secondary text-[18px]">group</span>
+<span class="text-label-sm font-bold uppercase text-secondary">Crowds</span>
+</div>
+<p class="text-body-md font-medium">High Level</p>
+</div>
+</div>
+<div class="bg-tertiary-container/10 p-3 rounded-2xl border border-tertiary-container/20 flex items-start gap-3">
+<span class="material-symbols-outlined text-tertiary-container mt-0.5">event_upcoming</span>
+<div>
+<p class="text-body-md font-bold text-tertiary-container leading-tight">Kyoto Jidai Matsuri</p>
+<p class="text-label-sm text-tertiary-container/80">Festival of the Ages happens on Oct 22. Expect parades and high street activity!</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick Selection Chips -->
+<div class="flex gap-2 overflow-x-auto no-scrollbar py-2 -mx-2 px-2">
+<button class="whitespace-nowrap px-4 py-2 rounded-full border border-primary text-primary hover:bg-primary/5 transition-all text-body-md font-medium">Flexible Dates</button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full border border-primary text-primary hover:bg-primary/5 transition-all text-body-md font-medium">Weekend Trip</button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full border border-primary text-primary hover:bg-primary/5 transition-all text-body-md font-medium">1 Week</button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full border border-primary text-primary hover:bg-primary/5 transition-all text-body-md font-medium">2 Weeks</button>
+</div>
+</div>
+</div>
+<!-- Waveform Animation Placeholder for Voice Input -->
+<div class="hidden mt-12 flex justify-center items-center gap-1" id="voice-animation">
+<div class="w-1.5 h-4 bg-primary rounded-full animate-bounce" style="animation-delay: 0s"></div>
+<div class="w-1.5 h-8 bg-primary rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
+<div class="w-1.5 h-12 bg-primary rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+<div class="w-1.5 h-6 bg-primary rounded-full animate-bounce" style="animation-delay: 0.3s"></div>
+<div class="w-1.5 h-10 bg-primary rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+</div>
+</main>
+<!-- Bottom Action Bar -->
+<div class="fixed bottom-0 w-full z-50">
+<!-- Floating Input Field -->
+<div class="max-w-[720px] mx-auto px-margin-mobile mb-4">
+<div class="glass rounded-full p-2 flex items-center ambient-shadow inner-glow border border-primary/10">
+<input class="flex-1 bg-transparent border-none focus:ring-0 px-4 text-on-surface placeholder-on-surface-variant/50" placeholder="Tell Nova your preferred dates..." type="text"/>
+<div class="flex gap-1">
+<button class="p-2 w-10 h-10 rounded-full flex items-center justify-center hover:bg-primary/5 transition-colors text-primary" onclick="toggleVoice()">
+<span class="material-symbols-outlined">mic</span>
+</button>
+<button class="p-2 w-10 h-10 rounded-full flex items-center justify-center bg-primary text-white hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Navigation Shell -->
+<nav class="bg-surface/70 dark:bg-surface-container/70 backdrop-blur-xl border-t border-outline-variant/10 shadow-lg shadow-primary/5 flex justify-around items-center px-4 py-3 h-20">
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant opacity-60 hover:text-primary active:opacity-80 transition-all duration-200">
+<span class="material-symbols-outlined">arrow_back</span>
+<span class="font-label-sm text-label-sm">Back</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant opacity-60 hover:text-primary active:opacity-80 transition-all duration-200">
+<span class="material-symbols-outlined">horizontal_rule</span>
+<span class="font-label-sm text-label-sm">Progress</span>
+</button>
+<button class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed font-bold hover:text-primary active:opacity-80 transition-all duration-200">
+<span class="material-symbols-outlined">arrow_forward</span>
+<span class="font-label-sm text-label-sm">Next</span>
+</button>
+</nav>
+</div>
+<!-- Background Decoration -->
+<div class="fixed top-0 left-0 w-full h-full -z-10 opacity-30 pointer-events-none">
+
+</div>
+<script>
+        function toggleVoice() {
+            const animation = document.getElementById('voice-animation');
+            animation.classList.toggle('hidden');
+            animation.classList.toggle('flex');
+            
+            // Scroll to bottom when animation appears
+            if (!animation.classList.contains('hidden')) {
+                window.scrollTo({
+                    top: document.body.scrollHeight,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // Simple interactive calendar logic for demo
+        document.querySelectorAll('.calendar-grid div').forEach(day => {
+            if (day.innerText && !day.classList.contains('text-on-surface/40') && day.innerText.length <= 2) {
+                day.addEventListener('click', () => {
+                    // Logic would go here to update selection
+                    console.log('Day clicked:', day.innerText);
+                });
+            }
+        });
+    </script>
+</body></html>
