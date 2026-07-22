@@ -11,4 +11,5 @@ abstract class AppRoutes {
   static const SHISENDO_DETAILS = '/shisendo_details';
   static const PLAN_MY_DAY = '/plan_my_day';
   static const EDIT_PROFILE = '/edit_profile';
+  static const LOGIN = '/login';
 }

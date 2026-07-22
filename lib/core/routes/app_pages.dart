@@ -18,6 +18,7 @@ import '../bindings/kyoto_binding.dart';
 import '../../features/plan_my_day/plan_my_day_view.dart';
 import '../../features/plan_my_day/plan_my_day_binding.dart';
 import '../../features/profile/edit_profile_view.dart';
+import '../../features/auth/login_view.dart';
 import 'app_routes.dart';
 
 abstract class AppPages {
@@ -86,6 +87,11 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.EDIT_PROFILE,
       page: () => const EditProfileView(),
+      transition: Transition.rightToLeftWithFade,
+    ),
+    GetPage(
+      name: AppRoutes.LOGIN,
+      page: () => const LoginView(),
       transition: Transition.rightToLeftWithFade,
     ),
   ];

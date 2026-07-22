@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import '../../core/routes/app_routes.dart';
 
 class OnboardingController extends GetxController {
   var currentStep = 0.obs;
@@ -27,8 +28,8 @@ class OnboardingController extends GetxController {
     if (currentStep.value == 0) {
       currentStep.value = 1;
     } else {
-      // Done, navigate to dashboard
-      Get.offNamed('/dashboard');
+      // Done with step 2 (interests_step), navigate to Login view
+      Get.toNamed(AppRoutes.LOGIN);
     }
   }
 
