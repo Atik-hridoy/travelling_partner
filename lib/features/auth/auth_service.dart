@@ -1,75 +1,128 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
+import '../../core/services/app_logger.dart';
 
 /// ------------------------------------------------------------------
-/// Simple Firebase Authentication & Firestore User Data Helper Service
+/// Traceable Firebase Authentication & Firestore Helper Service
 /// ------------------------------------------------------------------
 class AuthService {
   static final FirebaseAuth _auth = FirebaseAuth.instance;
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  // Get current Firebase user
   static User? get currentUser => _auth.currentUser;
 
-  /// 1. Create a new user account with Email & Password in Firebase Auth,
-  /// and save their full profile information to Cloud Firestore 'users' collection.
+  /// 1. Sign Up User with Email & Password and send data to Cloud Firestore
   static Future<UserCredential> signUpWithEmailAndPassword({
     required String fullName,
     required String email,
     required String password,
   }) async {
-    // Step A: Create user in Firebase Authentication
-    final credential = await _auth.createUserWithEmailAndPassword(
-      email: email.trim(),
-      password: password,
+    AppLogger.info(
+      'Attempting Firebase Sign Up for Email: "$email", Name: "$fullName"',
+      tag: 'SIGN_UP_START',
     );
 
-    final User? user = credential.user;
+    try {
+      // Step A: Register in Firebase Authentication
+      AppLogger.info('Sending registration request to Firebase Auth...', tag: 'FIREBASE_AUTH');
+      final credential = await _auth.createUserWithEmailAndPassword(
+        email: email.trim(),
+        password: password,
+      );
 
-    if (user != null) {
-      // Step B: Save user profile details in Cloud Firestore 'users' collection
-      final userProfileData = {
-        'uid': user.uid,
-        'name': fullName.trim(),
-        'email': email.trim(),
-        'bio': 'Curating the Unseen',
-        'tagline': 'Curating the Unseen',
-        'location': 'San Francisco, CA',
-        'website': 'voyanta.travel/user',
-        'memberBadge': 'NEW VOYAGER',
-        'avatarUrl': 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400',
-        'createdAt': FieldValue.serverTimestamp(),
-      };
+      final User? user = credential.user;
+      AppLogger.success('Firebase User Account Created! UID: "${user?.uid}"', tag: 'AUTH_SUCCESS');
 
-      await _firestore.collection('users').doc(user.uid).set(userProfileData);
-      
-      // Also update default 'julian_d' document for instant demo fallback
-      await _firestore.collection('users').doc('julian_d').set(userProfileData, SetOptions(merge: true));
+      if (user != null) {
+        // Step B: Build User Profile Payload
+        final userProfileData = {
+          'uid': user.uid,
+          'name': fullName.trim(),
+          'email': email.trim(),
+          'bio': 'Curating the Unseen',
+          'tagline': 'Curating the Unseen',
+          'location': 'San Francisco, CA',
+          'website': 'voyanta.travel/user',
+          'memberBadge': 'NEW VOYAGER',
+          'avatarUrl': 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400',
+          'createdAt': DateTime.now().toIso8601String(),
+        };
 
-      debugPrint('🔥 Firebase User registered and saved to Firestore: ${user.uid}');
+        // Step C: Send User Data to Cloud Firestore
+        AppLogger.dataSend('users', user.uid, userProfileData);
+        await _firestore.collection('users').doc(user.uid).set(userProfileData);
+
+        // Fallback update doc for demo
+        await _firestore.collection('users').doc('julian_d').set(userProfileData, SetOptions(merge: true));
+
+        AppLogger.success('User Profile successfully saved to Cloud Firestore!', tag: 'FIRESTORE_SUCCESS');
+      }
+
+      return credential;
+    } on FirebaseAuthException catch (e) {
+      String hint = 'Check Firebase settings.';
+      if (e.code == 'operation-not-allowed') {
+        hint = '⚡ IMPORTANT: Go to Firebase Console -> Authentication -> Sign-in method -> Click Email/Password -> Enable it & Save!';
+      } else if (e.code == 'email-already-in-use') {
+        hint = 'This email is already registered in your Firebase project. Try Sign In or use another email.';
+      } else if (e.code == 'weak-password') {
+        hint = 'Password must be at least 6 characters long.';
+      } else if (e.code == 'invalid-email') {
+        hint = 'Email address format is invalid.';
+      }
+
+      AppLogger.error(
+        'Firebase Auth Exception [${e.code}]',
+        e.message ?? e.toString(),
+        troubleshootingHint: hint,
+      );
+      rethrow;
+    } catch (e, stackTrace) {
+      AppLogger.error(
+        'Unexpected Sign Up Error',
+        e,
+        stackTrace: stackTrace,
+        troubleshootingHint: 'Ensure internet connection and Firebase config in lib/firebase_options.dart',
+      );
+      rethrow;
     }
-
-    return credential;
   }
 
-  /// 2. Sign In an existing user with Email & Password via Firebase Auth
+  /// 2. Sign In User with Email & Password
   static Future<UserCredential> signInWithEmailAndPassword({
     required String email,
     required String password,
   }) async {
-    final credential = await _auth.signInWithEmailAndPassword(
-      email: email.trim(),
-      password: password,
-    );
+    AppLogger.info('Attempting Firebase Sign In for Email: "$email"', tag: 'SIGN_IN_START');
 
-    debugPrint('🔑 Firebase User logged in: ${credential.user?.uid}');
-    return credential;
+    try {
+      final credential = await _auth.signInWithEmailAndPassword(
+        email: email.trim(),
+        password: password,
+      );
+
+      AppLogger.success('Firebase Sign In Successful! UID: "${credential.user?.uid}"', tag: 'SIGN_IN_SUCCESS');
+      return credential;
+    } on FirebaseAuthException catch (e) {
+      String hint = 'Check email and password.';
+      if (e.code == 'operation-not-allowed') {
+        hint = '⚡ Enable Email/Password in Firebase Console -> Authentication -> Sign-in method!';
+      } else if (e.code == 'user-not-found' || e.code == 'wrong-password' || e.code == 'invalid-credential') {
+        hint = 'Incorrect email or password. Verify credentials in Firebase Console Users tab.';
+      }
+
+      AppLogger.error('Firebase Sign In Exception [${e.code}]', e.message ?? e.toString(), troubleshootingHint: hint);
+      rethrow;
+    } catch (e, stackTrace) {
+      AppLogger.error('Unexpected Sign In Error', e, stackTrace: stackTrace);
+      rethrow;
+    }
   }
 
-  /// 3. Sign Out current user from Firebase
+  /// 3. Sign Out User
   static Future<void> signOut() async {
+    AppLogger.info('Signing out current Firebase user...', tag: 'SIGN_OUT');
     await _auth.signOut();
-    debugPrint('👋 Firebase User signed out');
+    AppLogger.success('User signed out from Firebase', tag: 'SIGN_OUT_SUCCESS');
   }
 }
