@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import '../../core/mock/mock_data.dart';
 import '../../core/services/mock_data_seeder.dart';
+import '../../core/services/app_logger.dart';
 import '../auth/auth_service.dart';
 
 class ProfileController extends GetxController {
@@ -37,12 +38,11 @@ class ProfileController extends GetxController {
         (snapshot) {
           if (snapshot.exists && snapshot.data() != null) {
             user.value = snapshot.data()!;
-            debugPrint('👤 Profile updated live from Firestore for UID: $uid');
+            AppLogger.info('👤 Profile synced live from Firestore: /users/$uid', tag: 'FIRESTORE_SYNC');
           }
         },
         onError: (error) {
-          debugPrint('⚠️ Firestore Profile Stream Permission Warning: $error');
-          debugPrint('💡 HINT: Go to Firebase Console -> Firestore Database -> Rules -> allow read, write: if true;');
+          AppLogger.error('Firestore Profile Stream Warning', error);
         },
       );
     } catch (e) {
@@ -55,6 +55,8 @@ class ProfileController extends GetxController {
     required String bio,
     required String location,
     required String website,
+    String? avatar,
+    List<String>? travelStyles,
   }) async {
     final updated = Map<String, dynamic>.from(user.value);
     updated['name'] = name;
@@ -62,18 +64,36 @@ class ProfileController extends GetxController {
     updated['tagline'] = bio;
     updated['location'] = location;
     updated['website'] = website;
+    if (avatar != null && avatar.isNotEmpty) {
+      updated['avatar'] = avatar;
+      updated['imageUrl'] = avatar;
+    }
+    if (travelStyles != null) {
+      updated['travelStyles'] = travelStyles;
+    }
 
     // Local reactive update
     user.value = updated;
 
-    // Push live update to Cloud Firestore for current user & fallback
-    final uid = AuthService.currentUser?.uid ?? 'julian_d';
-    try {
-      await _firestore.collection('users').doc(uid).set(updated, SetOptions(merge: true));
-      await _firestore.collection('users').doc('julian_d').set(updated, SetOptions(merge: true));
-      debugPrint('☁️ Profile updated live in Cloud Firestore for UID: $uid!');
-    } catch (e) {
-      debugPrint('Firestore Profile Update Warning: $e');
+    // Push live update to Cloud Firestore for current user
+    final uid = AuthService.currentUser?.uid;
+    if (uid != null) {
+      try {
+        await _firestore.collection('users').doc(uid).set(updated, SetOptions(merge: true));
+        AppLogger.success('🔥 CLOUD FIRESTORE SAVE SUCCESS!', tag: 'FIRESTORE_SAVE');
+        AppLogger.success('Document Path: /users/$uid', tag: 'FIRESTORE_PATH');
+      } catch (e) {
+        AppLogger.error('Firestore Profile Update Failed for real UID: $uid', e);
+      }
+    } else {
+      // If demo mode (no real user logged in), write to julian_d safely
+      try {
+        await _firestore.collection('users').doc('julian_d').set(updated, SetOptions(merge: true));
+        AppLogger.success('🔥 CLOUD FIRESTORE SAVE SUCCESS (Demo Mode)!', tag: 'FIRESTORE_SAVE');
+        AppLogger.success('Document Path: /users/julian_d', tag: 'FIRESTORE_PATH');
+      } catch (e) {
+        AppLogger.error('Firestore Profile Update Failed for julian_d', e);
+      }
     }
   }
 }

@@ -1,19 +1,24 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import '../../../../core/theme/colors.dart';
 import '../../../../core/theme/typography.dart';
 
 class EditPhotoHeader extends StatelessWidget {
   final String imageUrl;
+  final String? localPath;
   final VoidCallback onChangePhoto;
 
   const EditPhotoHeader({
     super.key,
     required this.imageUrl,
+    this.localPath,
     required this.onChangePhoto,
   });
 
   @override
   Widget build(BuildContext context) {
+    final bool hasLocalFile = localPath != null && localPath!.isNotEmpty && File(localPath!).existsSync();
+
     return Center(
       child: Column(
         children: [
@@ -35,16 +40,21 @@ class EditPhotoHeader extends StatelessWidget {
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(60),
-                  child: Image.network(
-                    imageUrl,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Container(
-                        color: VoyentaColors.primaryContainer,
-                        child: const Icon(Icons.person, size: 50, color: Colors.white),
-                      );
-                    },
-                  ),
+                  child: hasLocalFile
+                      ? Image.file(
+                          File(localPath!),
+                          fit: BoxFit.cover,
+                        )
+                      : Image.network(
+                          imageUrl,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Container(
+                              color: VoyentaColors.primaryContainer,
+                              child: const Icon(Icons.person, size: 50, color: Colors.white),
+                            );
+                          },
+                        ),
                 ),
               ),
               Positioned(
@@ -77,12 +87,15 @@ class EditPhotoHeader extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
-          Text(
-            'Change Photo',
-            style: VoyentaTypography.labelCaps.copyWith(
-              color: VoyentaColors.onSurfaceVariant.withValues(alpha: 0.6),
-              fontSize: 11,
-              fontWeight: FontWeight.bold,
+          GestureDetector(
+            onTap: onChangePhoto,
+            child: Text(
+              'Change Photo',
+              style: VoyentaTypography.labelCaps.copyWith(
+                color: VoyentaColors.primary,
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ],
