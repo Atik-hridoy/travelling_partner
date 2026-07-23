@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../../core/theme/colors.dart';
 import '../../core/theme/typography.dart';
 import 'edit_profile_controller.dart';
+import 'profile_controller.dart';
 import 'widgets/edit_photo_header.dart';
 import 'widgets/edit_form_fields.dart';
 import 'widgets/travel_style_selector.dart';
@@ -76,19 +77,31 @@ class EditProfileView extends GetView<EditProfileController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Photo Header
-            EditPhotoHeader(
-              imageUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400',
-              onChangePhoto: () {},
-            ),
+            Obx(() {
+              final user = Get.isRegistered<ProfileController>()
+                  ? Get.find<ProfileController>().user.value
+                  : {};
+              final defaultUrl = (user['avatar'] as String?) ?? (user['imageUrl'] as String?) ?? 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400';
+
+              return EditPhotoHeader(
+                imageUrl: defaultUrl,
+                localPath: controller.selectedImagePath.value,
+                onChangePhoto: () => controller.showPhotoSourcePicker(context),
+              );
+            }),
 
             const SizedBox(height: 32),
 
             // Form Fields
-            EditFormFields(
-              nameController: controller.nameController,
-              bioController: controller.bioController,
-              locationController: controller.locationController,
-              websiteController: controller.websiteController,
+            Obx(
+              () => EditFormFields(
+                nameController: controller.nameController,
+                bioController: controller.bioController,
+                locationController: controller.locationController,
+                websiteController: controller.websiteController,
+                onDetectLocation: controller.detectCurrentLocation,
+                isDetectingLocation: controller.isDetectingLocation.value,
+              ),
             ),
 
             const SizedBox(height: 32),
@@ -96,8 +109,8 @@ class EditProfileView extends GetView<EditProfileController> {
             // Travel Style Preferences
             Obx(
               () => TravelStyleSelector(
-                allStyles: controller.allStyles,
-                selectedStyles: controller.selectedStyles,
+                allStyles: controller.allStyles.toList(),
+                selectedStyles: controller.selectedStyles.toSet(),
                 onToggleStyle: controller.toggleStyle,
               ),
             ),

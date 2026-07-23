@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'package:get/get.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import '../../../core/theme/colors.dart';
 import '../../../core/theme/typography.dart';
 import '../../../core/routes/app_routes.dart';
 
 class MapTrendingCarousel extends StatelessWidget {
   final List<Map<String, dynamic>> nearbyPlaces;
+  final bool isLoading;
 
-  const MapTrendingCarousel({super.key, required this.nearbyPlaces});
+  const MapTrendingCarousel({
+    super.key, 
+    required this.nearbyPlaces,
+    this.isLoading = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -83,9 +89,11 @@ class MapTrendingCarousel extends StatelessWidget {
 
                 return GestureDetector(
                   onTap: () => Get.toNamed(AppRoutes.SHISENDO_DETAILS),
-                  child: Container(
-                    width: 280,
-                    margin: const EdgeInsets.only(right: 16),
+                  child: Skeletonizer(
+                    enabled: isLoading,
+                    child: Container(
+                      width: 280,
+                      margin: const EdgeInsets.only(right: 16),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(24),
                       child: BackdropFilter(
@@ -134,11 +142,15 @@ class MapTrendingCarousel extends StatelessWidget {
                                           children: [
                                             Icon(Icons.near_me, size: 12, color: VoyentaColors.onSurfaceVariant),
                                             const SizedBox(width: 4),
-                                            Text(
-                                              place['dist']!,
-                                              style: VoyentaTypography.bodyMd.copyWith(
-                                                color: VoyentaColors.onSurfaceVariant,
-                                                fontSize: 12,
+                                            Expanded(
+                                              child: Text(
+                                                place['dist']!,
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: VoyentaTypography.bodyMd.copyWith(
+                                                  color: VoyentaColors.onSurfaceVariant,
+                                                  fontSize: 12,
+                                                ),
                                               ),
                                             ),
                                           ],
@@ -160,7 +172,7 @@ class MapTrendingCarousel extends StatelessWidget {
                                         Icon(Icons.auto_awesome, size: 14, color: VoyentaColors.primary),
                                         const SizedBox(width: 4),
                                         Text(
-                                          place['match']!,
+                                          place['match'] ?? 'Nearby',
                                           style: VoyentaTypography.labelCaps.copyWith(
                                             color: VoyentaColors.primary,
                                             fontSize: 9,
@@ -200,7 +212,7 @@ class MapTrendingCarousel extends StatelessWidget {
                       ),
                     ),
                   ),
-                );
+                ));
               },
             ),
           ),

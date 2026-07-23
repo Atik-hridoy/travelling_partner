@@ -7,12 +7,14 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   try {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-    debugPrint('🔥 Firebase Initialized Successfully with fir-ea35c (demo)!');
+    if (Firebase.apps.isEmpty) {
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+      debugPrint('🔥 Firebase Initialized Successfully with fir-ea35c (demo)!');
+    }
   } catch (e) {
-    debugPrint('ℹ️ Firebase Setup Notice: $e');
+    debugPrint('ℹ️ Firebase Setup Info: $e');
   }
 
   runApp(const VoyentaApp());

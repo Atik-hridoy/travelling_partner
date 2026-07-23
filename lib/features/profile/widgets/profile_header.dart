@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/theme/colors.dart';
@@ -11,6 +12,9 @@ class ProfileHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String avatarPath = (user['avatar'] ?? user['avatarUrl'] ?? user['imageUrl']) as String? ?? 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400';
+    final bool isLocalFile = avatarPath.isNotEmpty && !avatarPath.startsWith('http') && File(avatarPath).existsSync();
+
     return Column(
       children: [
         // Avatar + Badge
@@ -33,25 +37,30 @@ class ProfileHeader extends StatelessWidget {
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(40),
-                  child: Image.network(
-                    (user['avatar'] ?? user['avatarUrl']) as String? ?? 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400',
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Container(
-                        color: VoyentaColors.surfaceContainerHigh,
-                        child: Center(
-                          child: Text(
-                            'JD',
-                            style: VoyentaTypography.headlineMd.copyWith(
-                              color: VoyentaColors.primary,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 32,
-                            ),
-                          ),
+                  child: isLocalFile
+                      ? Image.file(
+                          File(avatarPath),
+                          fit: BoxFit.cover,
+                        )
+                      : Image.network(
+                          avatarPath,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Container(
+                              color: VoyentaColors.surfaceContainerHigh,
+                              child: Center(
+                                child: Text(
+                                  'JD',
+                                  style: VoyentaTypography.headlineMd.copyWith(
+                                    color: VoyentaColors.primary,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 32,
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
                         ),
-                      );
-                    },
-                  ),
                 ),
               ),
               // Gold Member Badge

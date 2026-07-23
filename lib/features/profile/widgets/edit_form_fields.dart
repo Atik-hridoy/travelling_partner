@@ -7,6 +7,8 @@ class EditFormFields extends StatelessWidget {
   final TextEditingController bioController;
   final TextEditingController locationController;
   final TextEditingController websiteController;
+  final VoidCallback? onDetectLocation;
+  final bool isDetectingLocation;
 
   const EditFormFields({
     super.key,
@@ -14,6 +16,8 @@ class EditFormFields extends StatelessWidget {
     required this.bioController,
     required this.locationController,
     required this.websiteController,
+    this.onDetectLocation,
+    this.isDetectingLocation = false,
   });
 
   @override
@@ -31,8 +35,31 @@ class EditFormFields extends StatelessWidget {
 
         const SizedBox(height: 16),
 
-        _buildFormFieldLabel('LOCATION'),
-        _buildTextField(locationController, prefixIcon: Icons.location_on_outlined),
+        _buildFormFieldLabel('LOCATION (TAP GPS ICON TO FETCH)'),
+        _buildTextField(
+          locationController,
+          prefixIcon: Icons.location_on_outlined,
+          readOnly: true,
+          onTap: isDetectingLocation ? null : onDetectLocation,
+          suffixWidget: IconButton(
+            icon: isDetectingLocation
+                ? const SizedBox(
+                    width: 18,
+                    height: 18,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      color: VoyentaColors.primary,
+                    ),
+                  )
+                : const Icon(
+                    Icons.my_location_rounded,
+                    color: VoyentaColors.primary,
+                    size: 22,
+                  ),
+            tooltip: 'Fetch Current GPS Location',
+            onPressed: isDetectingLocation ? null : onDetectLocation,
+          ),
+        ),
 
         const SizedBox(height: 16),
 
@@ -56,7 +83,14 @@ class EditFormFields extends StatelessWidget {
     );
   }
 
-  Widget _buildTextField(TextEditingController controller, {IconData? prefixIcon, int maxLines = 1}) {
+  Widget _buildTextField(
+    TextEditingController controller, {
+    IconData? prefixIcon,
+    Widget? suffixWidget,
+    int maxLines = 1,
+    bool readOnly = false,
+    VoidCallback? onTap,
+  }) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.8),
@@ -68,12 +102,20 @@ class EditFormFields extends StatelessWidget {
       child: TextField(
         controller: controller,
         maxLines: maxLines,
+        readOnly: readOnly,
+        onTap: onTap,
         style: VoyentaTypography.bodyMd.copyWith(
           color: VoyentaColors.onSurface,
           fontSize: 15,
         ),
         decoration: InputDecoration(
           prefixIcon: prefixIcon != null ? Icon(prefixIcon, color: VoyentaColors.onSurfaceVariant, size: 20) : null,
+          suffixIcon: suffixWidget,
+          hintText: readOnly ? 'Tap GPS button to fetch location...' : null,
+          hintStyle: VoyentaTypography.bodyMd.copyWith(
+            color: VoyentaColors.onSurfaceVariant.withValues(alpha: 0.5),
+            fontSize: 14,
+          ),
           border: InputBorder.none,
           contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         ),

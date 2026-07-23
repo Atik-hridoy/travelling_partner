@@ -5,6 +5,7 @@ import 'controllers/dashboard_controller.dart';
 import 'home/home_dashboard.dart';
 import '../map/map_experience.dart';
 import '../itinerary/trip_planner.dart';
+import '../notifications/notifications_view.dart';
 import '../community/community_stories.dart';
 import '../profile/profile_view.dart';
 import 'widgets/dashboard_bottom_nav.dart';
@@ -18,6 +19,7 @@ class DashboardShell extends GetView<DashboardController> {
       const HomeDashboard(),
       const MapExperience(),
       const TripPlanner(),
+      const NotificationsView(),
       const CommunityStories(),
       const ProfileView(),
     ];

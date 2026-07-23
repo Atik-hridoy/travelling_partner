@@ -12,8 +12,8 @@ class WeatherWidget extends StatefulWidget {
 
   const WeatherWidget({
     super.key,
-    this.temperature = '68°F',
-    this.conditionName = 'Cloudy',
+    this.temperature = '26°C',
+    this.conditionName = 'Clear',
     this.initialType,
     this.onWeatherChanged,
   });
@@ -40,7 +40,7 @@ class _WeatherWidgetState extends State<WeatherWidget>
     _currentType = widget.initialType ?? _parseType(widget.conditionName);
     _currentCondition = widget.conditionName;
 
-    // Entrance Animation (Plays once on app entry / widget load)
+    // Entrance Animation
     _entranceController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 900),
@@ -77,6 +77,19 @@ class _WeatherWidgetState extends State<WeatherWidget>
     _entranceController.forward();
   }
 
+  @override
+  void didUpdateWidget(WeatherWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.initialType != oldWidget.initialType ||
+        widget.conditionName != oldWidget.conditionName) {
+      setState(() {
+        _currentType = widget.initialType ?? _parseType(widget.conditionName);
+        _currentCondition = widget.conditionName;
+      });
+      _entranceController.forward(from: 0.3);
+    }
+  }
+
   WeatherType _parseType(String condition) {
     final lower = condition.toLowerCase();
     if (lower.contains('sun') || lower.contains('clear')) {
@@ -89,35 +102,6 @@ class _WeatherWidgetState extends State<WeatherWidget>
       return WeatherType.thunder;
     }
     return WeatherType.cloudy;
-  }
-
-  void _cycleWeatherDemo() {
-    setState(() {
-      final types = WeatherType.values;
-      final nextIndex = (types.indexOf(_currentType) + 1) % types.length;
-      _currentType = types[nextIndex];
-
-      switch (_currentType) {
-        case WeatherType.sunny:
-          _currentCondition = 'Sunny';
-          break;
-        case WeatherType.cloudy:
-          _currentCondition = 'Cloudy';
-          break;
-        case WeatherType.rainy:
-          _currentCondition = 'Rainy';
-          break;
-        case WeatherType.snowy:
-          _currentCondition = 'Snowy';
-          break;
-        case WeatherType.thunder:
-          _currentCondition = 'Stormy';
-          break;
-      }
-    });
-
-    _entranceController.forward(from: 0.3);
-    widget.onWeatherChanged?.call(_currentType);
   }
 
   @override
@@ -264,72 +248,69 @@ class _WeatherWidgetState extends State<WeatherWidget>
         position: _slideAnimation,
         child: ScaleTransition(
           scale: _scaleAnimation,
-          child: GestureDetector(
-            onTap: _cycleWeatherDemo,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.9),
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(
-                  color: VoyentaColors.outlineVariant.withValues(alpha: 0.4),
-                  width: 1,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.9),
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color: VoyentaColors.outlineVariant.withValues(alpha: 0.4),
+                width: 1,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.04),
+                  blurRadius: 10,
+                  offset: const Offset(0, 3),
                 ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.04),
-                    blurRadius: 10,
-                    offset: const Offset(0, 3),
-                  ),
-                ],
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _buildWeatherEffectIcon(),
-                  const SizedBox(width: 8),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        'WEATHER',
-                        style: VoyentaTypography.labelCaps.copyWith(
-                          color: VoyentaColors.onSurfaceVariant.withValues(
-                            alpha: 0.6,
+              ],
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _buildWeatherEffectIcon(),
+                const SizedBox(width: 8),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'WEATHER',
+                      style: VoyentaTypography.labelCaps.copyWith(
+                        color: VoyentaColors.onSurfaceVariant.withValues(
+                          alpha: 0.6,
+                        ),
+                        fontSize: 8,
+                        letterSpacing: 0.5,
+                      ),
+                    ),
+                    AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 300),
+                      transitionBuilder: (child, animation) {
+                        return FadeTransition(
+                          opacity: animation,
+                          child: SlideTransition(
+                            position: Tween<Offset>(
+                              begin: const Offset(0, -0.2),
+                              end: Offset.zero,
+                            ).animate(animation),
+                            child: child,
                           ),
-                          fontSize: 8,
-                          letterSpacing: 0.5,
+                        );
+                      },
+                      child: Text(
+                        '${widget.temperature} $_currentCondition',
+                        key: ValueKey('$_currentCondition-${widget.temperature}'),
+                        style: VoyentaTypography.bodyMd.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: VoyentaColors.onSurface,
+                          fontSize: 12,
                         ),
                       ),
-                      AnimatedSwitcher(
-                        duration: const Duration(milliseconds: 300),
-                        transitionBuilder: (child, animation) {
-                          return FadeTransition(
-                            opacity: animation,
-                            child: SlideTransition(
-                              position: Tween<Offset>(
-                                begin: const Offset(0, -0.2),
-                                end: Offset.zero,
-                              ).animate(animation),
-                              child: child,
-                            ),
-                          );
-                        },
-                        child: Text(
-                          '${widget.temperature} $_currentCondition',
-                          key: ValueKey(_currentCondition),
-                          style: VoyentaTypography.bodyMd.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: VoyentaColors.onSurface,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ),
