@@ -1,1 +1,30 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"fir-ea35c","appId":"1:135922194001:android:39bbb2ccca1d3a26d88a70","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"fir-ea35c","configurations":{"android":"1:135922194001:android:39bbb2ccca1d3a26d88a70","ios":"1:135922194001:ios:f100ccc713011a3ad88a70"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "fir-ea35c",
+          "appId": "1:135922194001:android:39bbb2ccca1d3a26d88a70",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "fir-ea35c",
+          "configurations": {
+            "android": "1:135922194001:android:39bbb2ccca1d3a26d88a70",
+            "ios": "1:135922194001:ios:f100ccc713011a3ad88a70"
+          }
+        }
+      }
+    }
+  },
+  "emulators": {
+    "dataconnect": {
+      "dataDir": "dataconnect/.dataconnect/pgliteData"
+    }
+  },
+  "dataconnect": {
+    "source": "dataconnect"
+  }
+}

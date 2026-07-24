@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:flutter_map/flutter_map.dart' hide MapController;
+import 'package:latlong2/latlong.dart';
 import '../../core/theme/colors.dart';
 import '../../core/mock/mock_data.dart';
+import '../../core/constants/api_constants.dart';
 import 'map_controller.dart';
 import 'widgets/map_filter_pills.dart';
 import 'widgets/map_insight_button.dart';
@@ -22,58 +24,63 @@ class MapExperience extends GetView<MapController> {
       resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
-          // 1. Real Google Map Background
+          // 1. Mapbox Map View (flutter_map with official Mapbox Streets style tiles)
           Positioned.fill(
             child: Obx(() {
-              // Show searched location marker if available
-              final Set<Marker> markers = {
-                const Marker(
-                  markerId: MarkerId('salesforce_park'),
-                  position: LatLng(37.7897, -122.3972),
-                  infoWindow: InfoWindow(title: 'Salesforce Park'),
+              final markers = <Marker>[
+                Marker(
+                  point: const LatLng(37.7897, -122.3972),
+                  width: 40,
+                  height: 40,
+                  child: const Icon(Icons.location_on, color: Colors.redAccent, size: 36),
                 ),
-                const Marker(
-                  markerId: MarkerId('blue_bottle'),
-                  position: LatLng(37.7894, -122.4014),
-                  infoWindow: InfoWindow(title: 'Blue Bottle Coffee'),
+                Marker(
+                  point: const LatLng(37.7894, -122.4014),
+                  width: 40,
+                  height: 40,
+                  child: const Icon(Icons.location_on, color: Colors.orangeAccent, size: 36),
                 ),
-                const Marker(
-                  markerId: MarkerId('ferry_building'),
-                  position: LatLng(37.7955, -122.3937),
-                  infoWindow: InfoWindow(title: 'The Ferry Building'),
+                Marker(
+                  point: const LatLng(37.7955, -122.3937),
+                  width: 40,
+                  height: 40,
+                  child: const Icon(Icons.location_on, color: Colors.blueAccent, size: 36),
                 ),
-              };
+              ];
 
-              // Add search result marker dynamically
               if (controller.searchedLocation.value != null) {
                 markers.add(
                   Marker(
-                    markerId: const MarkerId('search_result'),
-                    position: controller.searchedLocation.value!,
-                    icon: BitmapDescriptor.defaultMarkerWithHue(
-                        BitmapDescriptor.hueAzure),
-                    infoWindow: InfoWindow(
-                      title: controller.searchQuery.value,
-                    ),
+                    point: controller.searchedLocation.value!,
+                    width: 48,
+                    height: 48,
+                    child: const Icon(Icons.stars_rounded, color: Colors.deepPurpleAccent, size: 42),
                   ),
                 );
               }
 
-              return GoogleMap(
-                initialCameraPosition: const CameraPosition(
-                  target: LatLng(37.7897, -122.3972),
-                  zoom: 14.5,
+              return FlutterMap(
+                mapController: controller.mapController,
+                options: MapOptions(
+                  initialCenter: const LatLng(37.7897, -122.3972),
+                  initialZoom: 14.5,
+                  minZoom: 1.0,
+                  maxZoom: 19.0,
+                  onTap: (_, __) {
+                    if (controller.isSearchActive.value) {
+                      controller.deactivateSearch();
+                    }
+                  },
                 ),
-                onMapCreated: controller.onMapCreated,
-                markers: markers,
-                myLocationButtonEnabled: false,
-                zoomControlsEnabled: false,
-                onTap: (_) {
-                  // Dismiss search on map tap
-                  if (controller.isSearchActive.value) {
-                    controller.deactivateSearch();
-                  }
-                },
+                children: [
+                  TileLayer(
+                    urlTemplate: ApiConstants.mapboxTileUrl,
+                    userAgentPackageName: 'com.voyenta.app',
+                    maxZoom: 19,
+                    minZoom: 1,
+                  ),
+                  MarkerLayer(markers: markers),
+                ],
               );
             }),
           ),

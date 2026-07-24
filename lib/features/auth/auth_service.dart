@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../firebase_options.dart';
 import '../../core/services/app_logger.dart';
@@ -141,7 +142,63 @@ class AuthService {
     }
   }
 
-  /// 3. Sign Out User
+  /// 3. Sign In with Google
+  static Future<UserCredential?> signInWithGoogle() async {
+    await _ensureFirebaseInitialized();
+    AppLogger.info('Attempting Google Sign In via Native SDK...', tag: 'GOOGLE_AUTH_START');
+
+    try {
+      final GoogleSignIn googleSignIn = GoogleSignIn();
+      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+      if (googleUser == null) {
+        AppLogger.info('User cancelled Google Sign-In dialog', tag: 'GOOGLE_AUTH_CANCEL');
+        return null;
+      }
+
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+      final OAuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      // Step D: Sign in to Firebase with the Credential
+      final UserCredential userCredential = await _auth.signInWithCredential(credential);
+      final User? user = userCredential.user;
+
+      AppLogger.success('Google Sign In Successful! UID: "${user?.uid}"', tag: 'GOOGLE_AUTH_SUCCESS');
+
+      if (user != null) {
+        final userProfileData = {
+          'uid': user.uid,
+          'name': user.displayName ?? 'Voyager',
+          'email': user.email ?? '',
+          'bio': 'Curating the Unseen',
+          'tagline': 'Curating the Unseen',
+          'location': 'San Francisco, CA',
+          'website': 'voyanta.travel/user',
+          'memberBadge': 'GOOGLE VOYAGER',
+          'avatarUrl': user.photoURL ?? 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400',
+          'createdAt': DateTime.now().toIso8601String(),
+        };
+
+        try {
+          await _firestore.collection('users').doc(user.uid).set(userProfileData, SetOptions(merge: true));
+          await _firestore.collection('users').doc('julian_d').set(userProfileData, SetOptions(merge: true));
+          AppLogger.success('Google User Profile saved to Firestore!', tag: 'FIRESTORE_SUCCESS');
+        } catch (fsError) {
+          AppLogger.info('Firestore save status: $fsError', tag: 'FIRESTORE');
+        }
+      }
+
+      return userCredential;
+    } catch (e, stackTrace) {
+      AppLogger.error('Google Sign In Error', e, stackTrace: stackTrace);
+      rethrow;
+    }
+  }
+
+  /// 4. Sign Out User
   static Future<void> signOut() async {
     await _ensureFirebaseInitialized();
     AppLogger.info('Signing out current Firebase user...', tag: 'SIGN_OUT');

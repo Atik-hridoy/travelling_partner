@@ -1,0 +1,29 @@
+mutation CreateSeedData @transaction {
+  c1: container_insertMany(data: [
+    {name: "Box A", description: "Storage", colorCode: "#FF0000"},
+    {name: "Box B", description: "Office", colorCode: "#00FF00"},
+    {name: "Box C", description: "Garage", colorCode: "#0000FF"}
+  ])
+  u1: unit_insertMany(data: [
+    {content: "Laptop", createdAt: "2023-10-01T10:00:00Z", title: "Work Unit"},
+    {content: "Screwdriver", createdAt: "2023-10-02T11:00:00Z", title: "Tool Unit"},
+    {content: "Notebook", createdAt: "2023-10-03T12:00:00Z", title: "Stationery Unit"}
+  ])
+  t1: tag_insertMany(data: [
+    {labelName: "urgent", color: "#FF0000"},
+    {labelName: "fragile", color: "#FFFF00"},
+    {labelName: "electronics", color: "#0000FF"}
+  ])
+  s1: source_insertMany(data: [
+    {urlOrReference: "https://example.com/1", author: "Alice"},
+    {urlOrReference: "https://example.com/2", author: "Bob"},
+    {urlOrReference: "manual-ref-001", author: "Charlie"}
+  ])
+  ut1: unitTag_insertMany(data: [
+    {unitId: "00000000-0000-0000-0000-000000000001", tagId: "00000000-0000-0000-0000-000000000001"},
+    {unitId: "00000000-0000-0000-0000-000000000002", tagId: "00000000-0000-0000-0000-000000000002"}
+  ])
+  r1: relationship_insertMany(data: [
+    {sourceUnitId: "00000000-0000-0000-0000-000000000001", targetUnitId: "00000000-0000-0000-0000-000000000003", relationshipType: "contains", note: "Primary"}
+  ])
+}

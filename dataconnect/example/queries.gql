@@ -1,0 +1,115 @@
+mutation CreateContainerData @auth(level: USER) {
+  container_insert(data: { name: "Storage Box", description: "Office supplies" })
+}
+
+mutation UpdateContainerData($id: UUID!, $name: String) @auth(level: USER) {
+  container_update(id: $id, data: { name: $name })
+}
+
+mutation DeleteContainerData($id: UUID!) @auth(level: USER) {
+  container_delete(id: $id)
+}
+
+query GetContainer($id: UUID!) @auth(level: USER) {
+  container(id: $id) { name description }
+}
+
+query ListContainers @auth(level: USER) {
+  containers { name description }
+}
+
+mutation CreateUnitData($containerId: UUID!, $content: String!) @auth(level: USER) {
+  unit_insert(data: { containerId: $containerId, content: $content, createdAt_expr: "request.time" })
+}
+
+mutation UpdateUnitData($id: UUID!, $content: String) @auth(level: USER) {
+  unit_update(id: $id, data: { content: $content, updatedAt_expr: "request.time" })
+}
+
+mutation DeleteUnitData($id: UUID!) @auth(level: USER) {
+  unit_delete(id: $id)
+}
+
+query GetUnit($id: UUID!) @auth(level: USER) {
+  unit(id: $id) { content title }
+}
+
+query ListUnits @auth(level: USER) {
+  units { content title }
+}
+
+mutation CreateTagData($labelName: String!) @auth(level: USER) {
+  tag_insert(data: { labelName: $labelName })
+}
+
+mutation UpdateTagData($id: UUID!, $color: String) @auth(level: USER) {
+  tag_update(id: $id, data: { color: $color })
+}
+
+mutation DeleteTagData($id: UUID!) @auth(level: USER) {
+  tag_delete(id: $id)
+}
+
+query GetTag($id: UUID!) @auth(level: USER) {
+  tag(id: $id) { labelName color }
+}
+
+query ListTags @auth(level: USER) {
+  tags { labelName color }
+}
+
+mutation CreateSourceData($url: String!, $unitId: UUID!) @auth(level: USER) {
+  source_insert(data: { urlOrReference: $url, unitId: $unitId })
+}
+
+mutation UpdateSourceData($id: UUID!, $author: String) @auth(level: USER) {
+  source_update(id: $id, data: { author: $author })
+}
+
+mutation DeleteSourceData($id: UUID!) @auth(level: USER) {
+  source_delete(id: $id)
+}
+
+query GetSource($id: UUID!) @auth(level: USER) {
+  source(id: $id) { urlOrReference author }
+}
+
+query ListSources @auth(level: USER) {
+  sources { urlOrReference author }
+}
+
+mutation CreateRelationshipData($sourceId: UUID!, $targetId: UUID!, $type: String!) @auth(level: USER) {
+  relationship_insert(data: { sourceUnitId: $sourceId, targetUnitId: $targetId, relationshipType: $type })
+}
+
+mutation UpdateRelationshipData($id: UUID!, $note: String) @auth(level: USER) {
+  relationship_update(id: $id, data: { note: $note })
+}
+
+mutation DeleteRelationshipData($id: UUID!) @auth(level: USER) {
+  relationship_delete(id: $id)
+}
+
+query GetRelationship($id: UUID!) @auth(level: USER) {
+  relationship(id: $id) { relationshipType note }
+}
+
+query ListRelationships @auth(level: USER) {
+  relationships { relationshipType note }
+}
+
+mutation CreateUnitTagData($unitId: UUID!, $tagId: UUID!) @auth(level: USER) {
+  unitTag_insert(data: { unitId: $unitId, tagId: $tagId })
+}
+
+mutation DeleteUnitTagData($id: UUID!) @auth(level: USER) {
+  unitTag_delete(id: $id)
+}
+
+query GetUnitTag($id: UUID!) @auth(level: USER) {
+  unitTag(id: $id) { unit { content } tag { labelName } }
+}
+
+query ListUnitTags @auth(level: USER) {
+  unitTags { unit { content } tag { labelName } }
+}
